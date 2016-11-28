@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menu_group_1">
+        <item
+            android:id="@+id/rl_mine_ziLiao"
+            android:icon="@drawable/ic_global_menu_feed"
+            android:title="个人资料" />
+        <item
+            android:id="@+id/rl_mine_collect"
+            android:icon="@drawable/ic_global_menu_direct"
+            android:title="我的收藏" />
+        <item
+            android:id="@+id/textView2"
+            android:icon="@drawable/ic_global_menu_news"
+            android:title="发布内容" />
+        <item
+            android:id="@+id/textView4"
+            android:icon="@drawable/ic_global_menu_popular"
+            android:title="回复信息" />
+    </group>
+    <group android:id="@+id/menu_group_2">
+        <item
+            android:id="@+id/rl_mine_sheZhi"
+            android:title="设置" />
+        <item
+            android:id="@+id/menu_about"
+            android:title="关于" />
+    </group>
+</menu>
