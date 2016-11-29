@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_about"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:src="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="\n  六合运势是香港六合寶典科技有限公司開發的一款基於香港六合彩為內容，集視頻開獎，記錄查詢，用戶論壇為一體的的六和彩資訊應用。\n\n    曾道士是具有資源佔用低、操作簡潔、數據齊全、分析準確等特點，是目前最受歡迎的的全能六和彩資訊應用之一。\n\n    版權所有@香港六合寶典科技有限公司"
+        android:textSize="15dp"/>
+
+</LinearLayout>

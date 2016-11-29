@@ -1,4 +1,38 @@
 <resources>
     <string name="app_name">lhys</string>
-    <string name="user_profile_photo">https://avatars1.githubusercontent.com/u/6947495?v=3&amp;s=460</string>
+    <string name="kj_main_zbb_2">準備報嗎，請稍後...</string>
+    <string name="kj_main_zzk_3">正在開獎，點擊觀看...</string>
+    <string name="kj_main_ggz_4">廣告中(六合管家下載地址:16808.com)</string>
+    <string name="kj_main_zzk_5">主持人講話中(六合管家下載地址:16808.com)</string>
+
+    <!-- 图片查看器 -->
+    <string name="viewpager_indicator">%1$d/%2$d</string>
+    <string name="folder_all">所有图片</string>
+    <string name="msg_no_camera">No system camera found</string>
+    <string name="msg_amount_limit">超出限制的张数,不可再选</string>
+    <!--main_item-->
+    <string name="name1">历史记录</string>
+    <string name="name2">开奖日期</string>
+    <string name="name3">论坛</string>
+    <string name="name4">玄机</string>
+    <string name="name5">资料</string>
+    <string name="name6">图库</string>
+    <string name="text1">回顾开奖结果</string>
+    <string name="text2">把握准确的时间</string>
+    <string name="text3">第一手专家</string>
+    <string name="text4">精准的玄机预测</string>
+    <string name="text5">丰富的爆料</string>
+    <string name="text6">全面的图料</string>
+
+    <!-- 1.正式地址 -->
+    <!-- 2.图片加载 -->
+    <string name="all_url">http://app.admin.mahuiapp.com:889/zdr_android.json</string>
+    <string name="base_url">http://wap.jizhou56.com:8090</string>
+    <string name="base_url_ad">http://ad.jizhou56.com:8090</string>
+    <string name="base_url_img">http://img.jizhou56.com:8090/</string>
+    <string name="base_url_zl">http://ziliao.jizhou56.com:8090/</string>
+    <string name="base_url_kj">http://app.jizhou56.com:8090/</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
