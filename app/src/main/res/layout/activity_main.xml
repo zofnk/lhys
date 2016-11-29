@@ -1,7 +1,7 @@
 <com.mxn.soul.flowingdrawer_core.LeftDrawerLayout
-    android:id="@+id/id_drawerlayout"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/id_drawerlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
@@ -21,8 +21,8 @@
         <com.lh16808.app.lhys.widget.blurview.BlurView
             android:id="@+id/blurView"
             android:layout_width="match_parent"
-            android:layout_gravity="bottom"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             app:blurOverlayColor="@color/colorOverlay">
 
             <android.support.design.widget.TabLayout
@@ -40,7 +40,7 @@
 
             <include
                 android:id="@+id/toolbar"
-                layout="@layout/view_feed_toolbar" />
+                layout="@layout/view_feed_toolbar"/>
         </android.support.design.widget.AppBarLayout>
     </android.support.design.widget.CoordinatorLayout>
 

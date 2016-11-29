@@ -102,19 +102,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     enum Page {
-        FIRST("Tab1") {
+        FIRST("首页") {
             @Override
             Fragment getFragment() {
                 return HomeFragment.newInstance();
             }
         },
-        SECOND("Tab2") {
+        SECOND("发现") {
             @Override
             Fragment getFragment() {
                 return FindFragment.newInstance();
             }
         },
-        THIRD("Tab3") {
+        THIRD("发奖") {
             @Override
             Fragment getFragment() {
                 return ResultFragment.newInstance();
