@@ -43,11 +43,6 @@ import cz.msebera.android.httpclient.Header;
 
 public class MyCollectActivity extends BaseActivity {
 
-    public static void start(Context context) {
-        Intent starter = new Intent(context, MyCollectActivity.class);
-        context.startActivity(starter);
-    }
-
     private View mLLCollect;
     private SwipeMenuListView mSwipeMenuListView;
     private View mNotData;
@@ -57,6 +52,13 @@ public class MyCollectActivity extends BaseActivity {
     String urlValue = "";
     ArrayList<CollectModel> listCollect = new ArrayList<>();
     private int type;
+    private static final String KEY_TITLE_TYPE = "title";
+
+    public static void start(Context context, int titleType) {
+        Intent starter = new Intent(context, MyCollectActivity.class);
+        starter.putExtra(KEY_TITLE_TYPE, titleType);
+        context.startActivity(starter);
+    }
 
     @Override
     protected void initVariables() {

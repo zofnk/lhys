@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <EditText
+        android:id="@+id/edt_fatie_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_edt_bg_1"
+        android:hint="請輸入標題"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="#373447"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edt_fatie_content"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_edt_bg_1"
+        android:gravity="top"
+        android:hint="請輸入內容"
+        android:padding="10dp"
+        android:textColor="#373447"
+        android:textSize="16sp" />
+
+
+    <Button
+        android:id="@+id/btn_faTie"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/orgin_btn_commit"
+        android:text="提交"
+        android:textColor="@color/white" />
+</LinearLayout>

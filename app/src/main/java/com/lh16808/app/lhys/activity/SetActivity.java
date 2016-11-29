@@ -23,6 +23,7 @@ import com.lh16808.app.lhys.utils.ToastUtil;
 public class SetActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView tvCache;
+    private View mBtnOut;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, SetActivity.class);
@@ -31,9 +32,14 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initVariables() {
-        View btnOut = findViewById(R.id.btn_outLogin);
-        btnOut.setOnTouchListener(new OnTouchAnim());
-        btnOut.setOnClickListener(this);
+        mBtnOut = findViewById(R.id.btn_outLogin);
+        mBtnOut.setOnTouchListener(new OnTouchAnim());
+        if (!TextUtils.isEmpty(User.getUser().getHym())) {
+            mBtnOut.setVisibility(View.VISIBLE);
+        }else {
+            mBtnOut.setVisibility(View.GONE);
+        }
+        mBtnOut.setOnClickListener(this);
         findViewById(R.id.ll_set_clean).setOnClickListener(this);
         findViewById(R.id.ll_set_yaoqin).setOnClickListener(this);
         findViewById(R.id.ll_set_back).setOnClickListener(this);
@@ -63,8 +69,6 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
                 if (!TextUtils.isEmpty(User.getUser().getHym())) {
                     MyProgressDialog.dialogShow(this);
                     MyUtils.outLogin(this);
-                } else {
-                    ToastUtil.toastShow(this, "当前无登录~");
                 }
                 break;
             case R.id.ll_set_clean:

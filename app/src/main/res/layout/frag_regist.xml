@@ -8,9 +8,8 @@
 
     <RelativeLayout
         android:id="@+id/rltyBack"
-        style="@style/margin"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="12dp"
         android:background="?attr/colorPrimary">
 
@@ -25,9 +24,9 @@
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:onClick="onClickBack"
-            android:padding="5dp"
+            android:padding="10dp"
             android:src="@drawable/btn_back_white"/>
     </RelativeLayout>
 
@@ -37,7 +36,6 @@
         android:layout_marginTop="30dp"
         android:orientation="vertical"
         android:paddingLeft="5dp">
-
 
         <EditText
             android:id="@+id/et_name"

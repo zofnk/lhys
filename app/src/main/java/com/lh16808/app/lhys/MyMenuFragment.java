@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,12 +19,15 @@ import android.widget.Toast;
 import com.lh16808.app.lhys.activity.AboutActivity;
 import com.lh16808.app.lhys.activity.LoginActivity;
 import com.lh16808.app.lhys.activity.MyCollectActivity;
+import com.lh16808.app.lhys.activity.NoteListActivity;
 import com.lh16808.app.lhys.activity.PeopleDataActivity;
 import com.lh16808.app.lhys.activity.SetActivity;
 import com.lh16808.app.lhys.model.User;
 import com.lh16808.app.lhys.other.Login;
 import com.lh16808.app.lhys.other.MessageEvent;
+import com.lh16808.app.lhys.other.MyProgressDialog;
 import com.lh16808.app.lhys.utils.ImageLoader;
+import com.lh16808.app.lhys.utils.SharedPreUtils;
 import com.lh16808.app.lhys.utils.ToastUtil;
 import com.mxn.soul.flowingdrawer_core.MenuFragment;
 
@@ -42,28 +46,30 @@ public class MyMenuFragment extends MenuFragment implements View.OnClickListener
     private TextView mTvJiFen;
     private TextView mTvLv;
 
+    private static final int HEADVIEW_POSITION = 0;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
-        mIvPhoto = (CircleImageView) view.findViewById(R.id.iv_mine_photo);
-        mIvPhoto.setOnClickListener(this);
         NavigationView naviView = (NavigationView) view.findViewById(R.id.vNavigation);
-        mTvName = (TextView) view.findViewById(R.id.tv_fragment_mine_nickname);
-        mTvJiFen = (TextView) view.findViewById(R.id.tv_fragment_mine_jiFen);
-        mTvLv = (TextView) view.findViewById(R.id.tv_fragment_mine_lv);
+        View headerView = naviView.getHeaderView(HEADVIEW_POSITION);
+        mIvPhoto = (CircleImageView) headerView.findViewById(R.id.iv_mine_photo);
+        mIvPhoto.setOnClickListener(this);
+        mTvName = (TextView) headerView.findViewById(R.id.tv_fragment_mine_nickname);
+        mTvJiFen = (TextView) headerView.findViewById(R.id.tv_fragment_mine_jiFen);
+        mTvLv = (TextView) headerView.findViewById(R.id.tv_fragment_mine_lv);
         naviView.setNavigationItemSelectedListener(new NavigationItemSelectedListener());
         return setupReveal(view);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(MessageEvent event) {
-        ToastUtil.toastShow(getContext(), "requestCode:" + event.getType());
+        ToastUtil.toastShow(getActivity(), "requestCode:" + event.getType());
         if (event.getType() == 1) {
             Login.OnLoginLoadPic onLoginSucceful = new Login.OnLoginLoadPic() {
                 @Override
@@ -115,16 +121,48 @@ public class MyMenuFragment extends MenuFragment implements View.OnClickListener
     }
 
     @Override
+    public void onStart() {
+        if (TextUtils.isEmpty(User.getUser().getHym())) {
+            String userName = SharedPreUtils.getString("userName");
+            String userPwd = SharedPreUtils.getString("userPwd");
+            if (!TextUtils.isEmpty(userPwd)) {
+                MyProgressDialog.dialogShow(getActivity());
+                Login.login(getActivity(), userName, userPwd, new Login.OnLoginSucceful() {
+                    @Override
+                    public void onSucess() {
+                        setUserInfo();
+                    }
+
+                    @Override
+                    public void onError() {
+                    }
+                });
+            } else {
+                if (mTvJiFen.getVisibility() != View.GONE) {
+                    mTvName.setText("请点击登录");
+                    mTvJiFen.setVisibility(View.GONE);
+                    mTvLv.setVisibility(View.GONE);
+                    mIvPhoto.setImageResource(R.drawable.ico_mine_login_person);
+                }
+            }
+        } else {
+            if (mTvJiFen.getVisibility() != View.VISIBLE) {
+                setUserInfo();
+            }
+        }
+        super.onStart();
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_mine_photo:
-                /*if (TextUtils.isEmpty(User.getUser().getHym()))
+                if (TextUtils.isEmpty(User.getUser().getHym()))
                     getActivity().startActivityForResult(new Intent(getContext(), LoginActivity.class), 1);
                 else {
                     Intent intent = new Intent(getContext(), PeopleDataActivity.class);
                     startLogin(intent);
-                }*/
-                Toast.makeText(getContext() , "sdasdadsadas", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
@@ -135,17 +173,35 @@ public class MyMenuFragment extends MenuFragment implements View.OnClickListener
             switch (item.getItemId()) {
                 case R.id.rl_mine_ziLiao:
                     //资料
-                    PeopleDataActivity.start(getContext());
+                    if (!TextUtils.isEmpty(User.getUser().getHym())) {
+                        PeopleDataActivity.start(getContext());
+                    } else {
+                        ToastUtil.toastShow(getContext(), "你还未登录~");
+                    }
                     break;
                 case R.id.rl_mine_collect:
                     //收藏
-                    MyCollectActivity.start(getContext());
+                    if (!TextUtils.isEmpty(User.getUser().getHym())) {
+                        MyCollectActivity.start(getContext(), 0);
+                    } else {
+                        ToastUtil.toastShow(getContext(), "你还未登录~");
+                    }
                     break;
                 case R.id.textView2:
                     //发布
+                    if (!TextUtils.isEmpty(User.getUser().getHym())) {
+                        NoteListActivity.start(getContext(), 1);
+                    } else {
+                        ToastUtil.toastShow(getContext(), "你还未登录~");
+                    }
                     break;
                 case R.id.textView4:
                     //回复信息
+                    if (!TextUtils.isEmpty(User.getUser().getHym())) {
+                        NoteListActivity.start(getContext(), 2);
+                    } else {
+                        ToastUtil.toastShow(getContext(), "你还未登录~");
+                    }
                     break;
                 case R.id.rl_mine_sheZhi:
                     //设置

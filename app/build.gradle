@@ -5,6 +5,8 @@ android {
     buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "com.lh16808.app.lhys"
+        renderscriptTargetApi 24
+        renderscriptSupportModeEnabled true
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1

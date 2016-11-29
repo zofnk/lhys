@@ -2,6 +2,7 @@ package com.lh16808.app.lhys.fragment;
 
 
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -47,7 +48,7 @@ public class FindPasswordFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     protected void init() {
-        View layoutBack = mRootview.findViewById(R.id.layout_back_to_login);
+        ImageView layoutBack = (ImageView) mRootview.findViewById(R.id.ivBack);
         layoutBack.setOnClickListener(this);
 
 
@@ -92,7 +93,7 @@ public class FindPasswordFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.layout_back_to_login:
+            case R.id.ivBack:
                 FragmentUtils.backStack(getActivity());
                 break;
 //            case R.id.tv_area:

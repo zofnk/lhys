@@ -35,6 +35,7 @@
         <activity android:name=".activity.HuiFuActivity"/>
         <activity android:name=".activity.ZiliaoDetailActivity"/>
         <activity android:name=".activity.CategoryDetailActivity"/>
+        <activity android:name=".activity.NoteListActivity"/>
     </application>
 
 </manifest>

@@ -44,8 +44,4 @@ public class LoginActivity extends BaseActivity implements OnLoginLinstener {
     protected void loadData() {
 
     }
-
-    @Override
-    protected void onDestroy() {
-    }
 }

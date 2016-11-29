@@ -181,10 +181,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                 login(name, pwd);
                 break;
             case R.id.tv_register:
-                FragmentUtils.addFragment(getFragmentManager(), R.id.content, RegistFragment.newInstance());
+                FragmentUtils.addFragment(getFragmentManager(), R.id.layout_login, RegistFragment.newInstance());
                 break;
             case R.id.tv_find_password:
-                FragmentUtils.addFragment(getFragmentManager(), R.id.content, FindPasswordFragment.newInstance());
+                FragmentUtils.addFragment(getFragmentManager(), R.id.layout_login, FindPasswordFragment.newInstance());
                 break;
             case R.id.iv_clear_userid:
                 etUserId.setText("");
