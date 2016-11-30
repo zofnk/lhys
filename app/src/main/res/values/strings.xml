@@ -10,6 +10,13 @@
     <string name="folder_all">所有图片</string>
     <string name="msg_no_camera">No system camera found</string>
     <string name="msg_amount_limit">超出限制的张数,不可再选</string>
+
+    <!-- error -->
+    <string name="component_dockbar_null_intent">数据异常</string>
+    <string name="component_activity_not_found">您的手机上未安装应用程序。</string>
+    <string name="connectionerror">NoConnectionError</string>
+    <string name="null_error">数据为空</string>
+
     <!--main_item-->
     <string name="name1">历史记录</string>
     <string name="name2">开奖日期</string>

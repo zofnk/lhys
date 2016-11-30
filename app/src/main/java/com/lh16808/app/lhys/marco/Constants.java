@@ -58,6 +58,8 @@ public interface Constants {
     // 开奖时间
     public static final String LOTTERY_TIME = "lottery_time";
 
+    // 主页轮播：
+    String AD_HOME = "http://ad.jizhou56.com:8090/appad/indexad/index.json";
     //能翻牌
     public static final String CAN_TURN_CARDS = "can_turn_cards";
     //翻牌的結果
