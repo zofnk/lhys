@@ -127,7 +127,7 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
             }
         });
     }
-    private void autoRefresh(boolean b) {
+    private void    autoRefresh(boolean b) {
         srlForum.post(new Runnable() {
             @Override
             public void run() {

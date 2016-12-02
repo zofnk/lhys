@@ -215,8 +215,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
     enum Page {
         FIRST("首页") {
             @Override
