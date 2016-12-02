@@ -1,7 +1,12 @@
 package com.lh16808.app.lhys;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,6 +25,8 @@ import android.view.ViewGroup;
 import com.lh16808.app.lhys.fragment.FindFragment;
 import com.lh16808.app.lhys.fragment.HomeFragment;
 import com.lh16808.app.lhys.fragment.ResultFragment;
+import com.lh16808.app.lhys.service.LottoService;
+import com.lh16808.app.lhys.utils.AppLog;
 import com.lh16808.app.lhys.widget.blurview.BlurView;
 import com.lh16808.app.lhys.widget.blurview.RenderScriptBlur;
 import com.mxn.soul.flowingdrawer_core.FlowingView;
@@ -41,13 +48,20 @@ public class MainActivity extends AppCompatActivity {
     private FindFragment mFindFragment = FindFragment.newInstance();
     private ResultFragment mResultFragment = ResultFragment.newInstance();
     private Fragment[] mFragments = new Fragment[]{mHomeFragment, mFindFragment, mResultFragment};
-    private String[] mTitle = new String[]{"首页", "发现", "开奖"};
+    private String[] mTitle = new String[]{"首页", "论坛", "娱乐"};
     private boolean[] fragmentsUpdateFlag = {false, false, false, false};
+    private Intent mService;
+    public static MainActivity mContext;
+
+    public static MainActivity getInstance() {
+        return mContext;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContext = this;
         setupToolbar();
 
         mLeftDrawerLayout = (LeftDrawerLayout) findViewById(R.id.id_drawerlayout);
@@ -68,6 +82,58 @@ public class MainActivity extends AppCompatActivity {
         mLeftDrawerLayout.setMenuFragment(mMenuFragment);
         setupFeed();
 
+        mService = new Intent(this, LottoService.class);
+        startService(mService);
+    }
+
+    @Override
+    protected void onStart() {
+        mService = new Intent(this, LottoService.class);
+        bindService(mService, mConn, Context.BIND_AUTO_CREATE);
+        super.onStart();
+    }
+
+    private LottoService.LottoBinder mBinder;
+    private ServiceConnection mConn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mBinder = (LottoService.LottoBinder) service;
+            mBinder.lunXun();
+            mBinder.setOnVideoPlayPosition(new LottoService.OnVideoPlayPosition() {
+                @Override
+                public void sendPosition(int a, String zm, String sx) {
+                    AppLog.redLog("Tag", "" + "a:" + a + "-zm:" + zm + "-sx:" + sx);
+                }
+
+                @Override
+                public void sendZT(int zt) {
+                    if (MainActivity.this.zt != null) {
+                        MainActivity.this.zt.loadzt(zt);
+                    }
+                }
+            });
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+    LoadZT zt;
+
+    public interface LoadZT {
+        void loadzt(int zt);
+    }
+
+    public void setLoadzt(LoadZT zt) {
+        this.zt = zt;
+    }
+
+
+    @Override
+    protected void onStop() {
+        unbindService(mConn);
+        super.onStop();
     }
 
     private void setupViewPager() {
@@ -148,6 +214,8 @@ public class MainActivity extends AppCompatActivity {
             return fragment;
         }
     }
+
+
 
     enum Page {
         FIRST("首页") {

@@ -1,20 +1,15 @@
-package com.lh16808.app.lhys.fragment;
-
+package com.lh16808.app.lhys.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.lh16808.app.lhys.R;
-import com.lh16808.app.lhys.activity.FaTeiActivity;
-import com.lh16808.app.lhys.activity.ForumDetailActivity;
 import com.lh16808.app.lhys.adapter.ForumAdapter;
+import com.lh16808.app.lhys.base.BaseActivity;
 import com.lh16808.app.lhys.model.ForumModel;
 import com.lh16808.app.lhys.other.ShowBannerInfo;
 import com.lh16808.app.lhys.utils.AppLog;
@@ -26,21 +21,16 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
-import com.sunfusheng.marqueeview.MarqueeView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FindFragment extends Fragment implements View.OnClickListener,SwipyRefreshLayout.OnRefreshListener{
+public class ForumActivity extends BaseActivity implements SwipyRefreshLayout.OnRefreshListener {
 
     private RecyclerView mRecyclerView;
     private ForumAdapter mAdapter;
@@ -58,54 +48,57 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
     private SwipyRefreshLayout srlForum;
     //    ArrayList<ForumModel> morelist = new ArrayList<>();
     private ShowBannerInfo mShowBannerInfo;
-    private List<String> MarqueeInfo = new ArrayList<>();
-
-    public static FindFragment newInstance() {
-        
-        Bundle args = new Bundle();
-        
-        FindFragment fragment = new FindFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public FindFragment() {
-    }
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_find, container, false);
-        MarqueeView marqueeView= (MarqueeView) view.findViewById(R.id.mrvBanner);
-        MarqueeInfo.add("六合运势为您服务");
-        MarqueeInfo.add("欢迎大家关注六合运势");
-        MarqueeInfo.add("六合运势为您服务");
-        marqueeView.startWithList(MarqueeInfo);
-
-        initRecycView(view);
-        initRefresh(view);
-        FloatingActionButton faButton = (FloatingActionButton) view.findViewById(R.id.fabFind);
-        faButton.setOnClickListener(this);
-        return view;
+    protected void initVariables() {
+        View rlBanner = findViewById(R.id.rl_forum_banner);
+        ViewPager vpBanner = (ViewPager) findViewById(R.id.vp_forum_banner);
+        mShowBannerInfo = new ShowBannerInfo(this, rlBanner, vpBanner);
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MyUtils.isFastDoubleClick()) {
+                    return;
+                }
+                if (MyUtils.getUser(ForumActivity.this)) {
+                    startActivity(new Intent(ForumActivity.this, FaTeiActivity.class));
+                }
+            }
+        });
     }
-    private void initRefresh(View view) {
-        srlForum = (SwipyRefreshLayout) view.findViewById(R.id.srl_forum);
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_forum);
+//        initData1();
+        initRecycView();
+        initRefresh();
+    }
+
+    @Override
+    protected void loadData() {
+
+    }
+
+    private void initRefresh() {
+        srlForum = (SwipyRefreshLayout) findViewById(R.id.srl_forum);
         srlForum.setOnRefreshListener(this);
         autoRefresh(true);
     }
-    private void initRecycView(View view) {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_forum);
+
+    private void initRecycView() {
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_forum);
         //设置布局管理器
-        mRecyclerView.setLayoutManager(new MyLinearLayoutManager(getContext()));
+        mRecyclerView.setLayoutManager(new MyLinearLayoutManager(this));
         //设置adapter
-        mAdapter = new ForumAdapter(getContext(), list);
+        mAdapter = new ForumAdapter(this, list);
         mAdapter.setOnItemClickLitener(new ForumAdapter.OnItemClickLitener() {
 
             @Override
             public void onItemClick(View view, int position) {
                 if (list.size() > 0) {
-                    Intent intent = new Intent(getActivity(), ForumDetailActivity.class);
-                    ForumModel forumModel = list.get(position);
+                    Intent intent = new Intent(ForumActivity.this, ForumDetailActivity.class);
+                    ForumModel forumModel = ForumActivity.this.list.get(position);
                     intent.putExtra("forumModel", forumModel.getId());
                     startActivity(intent);
                 }
@@ -126,36 +119,6 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
                 }
             }
         });
-    }
-    private void autoRefresh(boolean b) {
-        srlForum.post(new Runnable() {
-            @Override
-            public void run() {
-                srlForum.setRefreshing(true);
-            }
-        });
-        if (b) {
-            this.onRefresh(SwipyRefreshLayoutDirection.TOP);
-        } else {
-            this.onRefresh(SwipyRefreshLayoutDirection.BOTTOM);
-        }
-
-    }
-
-    @Override
-    public void onRefresh(SwipyRefreshLayoutDirection direction) {
-        if (direction == SwipyRefreshLayoutDirection.TOP ? true : false) {
-            yeShu = 30;
-            list.clear();
-            mAdapter.notifyDataSetChanged();
-            initData1();
-        } else {
-            if (list.size() > 0) {
-                yeShu += 20;
-                initData();
-                ToastUtil.toastShow(getContext(), "加载中...");
-            }
-        }
     }
 
     private void initData1() {
@@ -182,7 +145,7 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
                         String onclick = jsonObject1.getString("onclick");
                         int rnum = jsonObject1.getInt("rnum");
                         ForumModel forumModel = new ForumModel(id, title, userpic, groupname, username, userfen, newstime, onclick, rnum);
-                        FindFragment.this.list.add(forumModel);
+                        ForumActivity.this.list.add(forumModel);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -192,14 +155,14 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
                 if (mAdapter != null) {
                     mAdapter.notifyDataSetChanged();
                 }
-                ToastUtil.toastShow(getContext(), list.size() + "");
+                ToastUtil.toastShow(ForumActivity.this, list.size() + "");
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 loading = false;
                 srlForum.setRefreshing(false);
-                ToastUtil.toastShow(getContext(), "网络错误~");
+                ToastUtil.toastShow(ForumActivity.this, "网络错误~");
             }
         });
     }
@@ -230,7 +193,7 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
                         String onclick = jsonObject1.getString("onclick");
                         int rnum = jsonObject1.getInt("rnum");
                         ForumModel forumModel = new ForumModel(id, title, userpic, groupname, username, userfen, newstime, onclick, rnum);
-                        FindFragment.this.list.add(forumModel);
+                        ForumActivity.this.list.add(forumModel);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -240,7 +203,7 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
                     mAdapter.notifyDataSetChanged();
                 }
                 AppLog.redLog("TTTTTTT", "list.size():" + list.size());
-                ToastUtil.toastShow(getContext(), list.size() + "");
+                ToastUtil.toastShow(ForumActivity.this, list.size() + "");
 //                oneload = true;
             }
 
@@ -253,16 +216,33 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.fabFind:
-                if (MyUtils.isFastDoubleClick()) {
-                    return;
-                }
-                if (MyUtils.getUser(getContext())) {
-                    startActivity(new Intent(getActivity(), FaTeiActivity.class));
-                }
-                break;
+    public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        if (direction == SwipyRefreshLayoutDirection.TOP ? true : false) {
+            yeShu = 30;
+            ForumActivity.this.list.clear();
+            mAdapter.notifyDataSetChanged();
+            initData1();
+        } else {
+            if (list.size() > 0) {
+                yeShu += 20;
+                initData();
+                ToastUtil.toastShow(ForumActivity.this, "加载中...");
+            }
         }
+    }
+
+    private void autoRefresh(boolean b) {
+        srlForum.post(new Runnable() {
+            @Override
+            public void run() {
+                srlForum.setRefreshing(true);
+            }
+        });
+        if (b) {
+            this.onRefresh(SwipyRefreshLayoutDirection.TOP);
+        } else {
+            this.onRefresh(SwipyRefreshLayoutDirection.BOTTOM);
+        }
+
     }
 }

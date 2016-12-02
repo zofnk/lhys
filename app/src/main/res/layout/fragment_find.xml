@@ -1,10 +1,45 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:id="@+id/activity_forum"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <com.sunfusheng.marqueeview.MarqueeView
+        android:id="@+id/mrvBanner"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?attr/colorPrimary"
+        android:paddingLeft="20dp"
+        app:mvAnimDuration="1000"
+        app:mvInterval="3000"
+        app:mvSingleLine="true"
+        app:mvTextColor="@color/white"
+        app:mvTextSize="16dp"/>
+
+    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+        android:id="@+id/srl_forum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_refresh"
+        android:layout_marginTop="60dp"
+        android:layout_weight="1"
+        app:srl_direction="both">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_forum"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:scrollbarThumbVertical="@drawable/shape_forum_recycbar"
+            android:scrollbars="vertical"/>
+    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
-<TextView
-    android:layout_width="match_parent"
-    android:text="asd\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nasdasdas\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nasdasdadad"
-    android:layout_height="match_parent"/>
-</ScrollView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabFind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="70dp"
+        android:layout_marginRight="20dp"
+        app:srcCompat="@drawable/ic_discuss"/>
+</FrameLayout>
