@@ -57,7 +57,8 @@ public class H {
 
     public static void LOADKJ(AsyncHttpResponseHandler a) {
 //        AsyncHttpClientUtils.getInstance().get(ApiConfig.getBaseUrl(ApiConfig.IosKJ), a);
-        AsyncHttpClientUtils.getInstance().get(ApiConfig.JsonXML, a);
+        AsyncHttpClientUtils.getInstance().get(ApiConfig.getBaseUrlKj(ApiConfig.KJ), a);
+//        AsyncHttpClientUtils.getInstance().get(ApiConfig.KJ, a);
     }
 
     public static void TuKu(RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {

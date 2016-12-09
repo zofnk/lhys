@@ -31,6 +31,11 @@ public class SetActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
+    protected void initLoadData() {
+
+    }
+
+    @Override
     protected void initVariables() {
         mBtnOut = findViewById(R.id.btn_outLogin);
         mBtnOut.setOnTouchListener(new OnTouchAnim());

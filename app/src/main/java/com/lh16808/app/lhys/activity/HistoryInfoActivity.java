@@ -65,6 +65,11 @@ public class HistoryInfoActivity extends BaseActivity {
     }
 
     @Override
+    protected void initLoadData() {
+
+    }
+
+    @Override
     protected void initVariables() {
         View rlBanner = findViewById(R.id.rl_hisInfo_banner);
         ViewPager vpBanner = (ViewPager) findViewById(R.id.vp_hisInfo_banner);

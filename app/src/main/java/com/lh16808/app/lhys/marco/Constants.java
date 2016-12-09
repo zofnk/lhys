@@ -76,6 +76,23 @@ public interface Constants {
     String[] classid_TUKU = {"66", "89", "92", "65"};
     String[] TITLES_TUKU = {"彩色图库", "玄机彩图", "黑白图库", "全年图库"};
 
+    String[] caipiaotitle = {"重慶時時彩", "黑龍江時時彩", "吉林時時彩", "天津時時彩", "新疆時時彩", "雲南時時彩", "大樂透", "福彩3D", "排列3", "排列5",
+            "七樂彩", "七星彩", "雙色球", "體彩36選7", "安徽11選5", "北京11選5", "福建11選5", "廣東11選5", "甘肅11選5", "廣西11選5", "貴州11選5",
+            "河北11選5", "河南11選5", "黑龍江11選5", "湖北11選5", "吉林11選5", "江蘇11選5", "江西11選5", "遼寧11選5", "內蒙古11選5", "四川11選5",
+            "山東11選5", "上海11選5", "陜西11選5", "山西11選5", "天津11選5", "新疆11選5", "雲南11選5", "浙江11選5"};
+    String[] caipiaoUrl = {ApiConfig.Web_ShiShiCai_CQ, ApiConfig.Web_ShiShiCai_HLJ, ApiConfig.Web_ShiShiCai_JL,
+            ApiConfig.Web_ShiShiCai_TJ, ApiConfig.Web_ShiShiCai_XJ, ApiConfig.Web_ShiShiCai_YN, ApiConfig.Web_DaLeTou,
+            ApiConfig.Web_FuCai3D, ApiConfig.Web_PaiLie3, ApiConfig.Web_PaiLie5, ApiConfig.Web_QiLeCai,
+            ApiConfig.Web_QiXingCai, ApiConfig.Web_ShuangSeQiu, ApiConfig.Web_TiCai37X7, ApiConfig.Web_ShiShiCai_AW,
+            ApiConfig.Web_ShiShiCai_BJ, ApiConfig.Web_ShiShiCai_FJ, ApiConfig.Web_ShiShiCai_GD,
+            ApiConfig.Web_ShiShiCai_GS, ApiConfig.Web_ShiShiCai_GX, ApiConfig.Web_ShiShiCai_GZ,
+            ApiConfig.Web_ShiShiCai_HB, ApiConfig.Web_ShiShiCai_HN, ApiConfig.Web_ShiShiCai_HLJ11x5,
+            ApiConfig.Web_ShiShiCai_HuBbei, ApiConfig.Web_ShiShiCai_JiLin, ApiConfig.Web_ShiShiCai_JiangSu,
+            ApiConfig.Web_ShiShiCai_JiangXi, ApiConfig.Web_ShiShiCai_LiaoLing, ApiConfig.Web_ShiShiCai_NeiMengGu,
+            ApiConfig.Web_ShiShiCai_SiCuan, ApiConfig.Web_ShiShiCai_ShanDong, ApiConfig.Web_ShiShiCai_ShangHai,
+            ApiConfig.Web_ShiShiCai_ShangXi, ApiConfig.Web_ShiShiCai_ShanXi, ApiConfig.Web_ShiShiCai_TianJin,
+            ApiConfig.Web_ShiShiCai_XinJiang, ApiConfig.Web_ShiShiCai_YunNan, ApiConfig.Web_ShiShiCai_ZheJiang};
+
     /**
      * 非网络参数
      */

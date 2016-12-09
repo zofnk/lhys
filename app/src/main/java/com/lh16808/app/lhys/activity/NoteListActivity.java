@@ -47,6 +47,11 @@ public class NoteListActivity extends BaseActivity {
     private static final String KEY_TITLE = "title";
 
     @Override
+    protected void initLoadData() {
+
+    }
+
+    @Override
     protected void initVariables() {
 
     }

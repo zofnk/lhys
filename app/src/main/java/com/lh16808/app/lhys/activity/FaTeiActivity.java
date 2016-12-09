@@ -35,6 +35,11 @@ public class FaTeiActivity extends BaseActivity {
     private String title;
 
     @Override
+    protected void initLoadData() {
+
+    }
+
+    @Override
     protected void initVariables() {
     }
 

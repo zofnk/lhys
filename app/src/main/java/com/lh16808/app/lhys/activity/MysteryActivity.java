@@ -22,6 +22,11 @@ public class MysteryActivity extends BaseActivity {
     private final String[] TITLES = {"曾道人", "白小姐", "内部资料"};
 
     @Override
+    protected void initLoadData() {
+
+    }
+
+    @Override
     protected void initVariables() {
         View rlBanner = findViewById(R.id.rl_mystery_banner);
         ViewPager vpBanner = (ViewPager) findViewById(R.id.vp_mystery_banner);

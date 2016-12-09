@@ -32,6 +32,11 @@ public class ZiliaoActivity extends BaseActivity {
     private final String[] TITLES = Constants.TITLES;//, "六合属性"
 
     @Override
+    protected void initLoadData() {
+
+    }
+
+    @Override
     protected void initVariables() {
         View rlBanner = findViewById(R.id.rl_ziLiao_banner);
         ViewPager vpBanner = (ViewPager) findViewById(R.id.vp_ziLiao_banner);

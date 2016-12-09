@@ -69,5 +69,24 @@ public class ImageLoader {
             }
         }).into(view);
     }
+    /**
+     * 网络加载图片，含默认图片
+     *
+     * @param mContext
+     * @param url
+     * @param view
+     */
+    public static void LoaderNet2(Context mContext, String url, ImageView view) {
+        Glide.with(mContext).load(url).placeholder(R.mipmap.image_detaila_2).error(R.drawable.ic_error_load).listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                return false;
+            }
 
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                return false;
+            }
+        }).into(view);
+    }
 }

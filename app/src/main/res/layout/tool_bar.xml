@@ -6,7 +6,6 @@
     android:layout_height="50dp"
     android:background="?attr/colorPrimary"
     android:paddingBottom="3dp"
-    android:paddingTop="@dimen/padding_top"
     app:popupTheme="@style/AppTheme.AppBarOverlay">
 
     <ImageView

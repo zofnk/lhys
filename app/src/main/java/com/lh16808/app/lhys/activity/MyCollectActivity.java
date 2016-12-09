@@ -61,6 +61,11 @@ public class MyCollectActivity extends BaseActivity {
     }
 
     @Override
+    protected void initLoadData() {
+
+    }
+
+    @Override
     protected void initVariables() {
 
     }

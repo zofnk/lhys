@@ -285,11 +285,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 MyProgressDialog.dialogHide();
                 Data();
                 if ("1".equals(mLottery.zt)) {
-                    mLLBaoMa.setVisibility(View.GONE);
+                    mLLBaoMa.setVisibility(View.INVISIBLE);
                     mLLKaiJian.setVisibility(View.VISIBLE);
                 } else {
                     mLLBaoMa.setVisibility(View.VISIBLE);
-                    mLLKaiJian.setVisibility(View.GONE);
+                    mLLKaiJian.setVisibility(View.INVISIBLE);
                 }
                 String upLotteryTime = SharedPreUtils.getString(Constants.LOTTERY_TIME, "0");
                 String nowLotteryTime = Lottery.getLottery().bq;
@@ -300,6 +300,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     SharedPreUtils.putBoolean(Constants.CAN_TURN_CARDS, true);
                     SharedPreUtils.putBoolean(Constants.CAN_SHAKE, true);
                 }
+                if ("1".equals(mLottery.zt))
+                    countDown();
             }
 
             @Override

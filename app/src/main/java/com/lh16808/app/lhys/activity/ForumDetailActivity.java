@@ -32,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -55,6 +56,11 @@ public class ForumDetailActivity extends BaseActivity {
 //    private RecyclerView mRecyclerView;
     private HFDetailAdapter mAdapter;
     private RecyclerView mRecyclerView;
+
+    @Override
+    protected void initLoadData() {
+
+    }
 
     @Override
     protected void initVariables() {

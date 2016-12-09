@@ -12,6 +12,11 @@ import com.lh16808.app.lhys.utils.FragmentUtils;
 public class LoginActivity extends BaseActivity implements OnLoginLinstener {
 
     @Override
+    protected void initLoadData() {
+
+    }
+
+    @Override
     protected void initVariables() {
 
     }
@@ -33,6 +38,7 @@ public class LoginActivity extends BaseActivity implements OnLoginLinstener {
 
     @Override
     public void setViewPagerGesture(boolean gesture) {
+
     }
 
     @Override

@@ -20,7 +20,7 @@ public class Lottery {
     public String sxsj;
     public String xyqsx;
     public String xq;
-
+    public String xyqsjc;
 
     public boolean isOpen1 = true;
     public boolean isOpen2 = true;

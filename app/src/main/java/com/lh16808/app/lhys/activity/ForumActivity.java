@@ -50,6 +50,11 @@ public class ForumActivity extends BaseActivity implements SwipyRefreshLayout.On
     private ShowBannerInfo mShowBannerInfo;
 
     @Override
+    protected void initLoadData() {
+
+    }
+
+    @Override
     protected void initVariables() {
         View rlBanner = findViewById(R.id.rl_forum_banner);
         ViewPager vpBanner = (ViewPager) findViewById(R.id.vp_forum_banner);

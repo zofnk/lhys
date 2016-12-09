@@ -71,6 +71,11 @@ public class PeopleDataActivity extends BaseActivity implements View.OnClickList
     private String headFile;
 
     @Override
+    protected void initLoadData() {
+
+    }
+
+    @Override
     protected void initVariables() {
 
     }

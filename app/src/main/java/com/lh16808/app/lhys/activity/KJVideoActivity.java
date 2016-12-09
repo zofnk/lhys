@@ -86,6 +86,11 @@ public class KJVideoActivity extends BaseActivity {
     }
 
     @Override
+    protected void initLoadData() {
+
+    }
+
+    @Override
     protected void initVariables() {
         imageView1 = (ImageView) findViewById(R.id.imageView1);
         img_horn_on = (ImageView) findViewById(R.id.img_horn_on);

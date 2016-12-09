@@ -1,5 +1,6 @@
 package com.lh16808.app.lhys.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -23,6 +24,16 @@ public class LottoActivity extends BaseActivity {
     private ShowBannerInfo mShowBannerInfo;
     private ProgressBar mProgressBar;
     String baseUrl;
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, LottoActivity.class);
+        context.startActivity(starter);
+    }
+
+    @Override
+    protected void initLoadData() {
+
+    }
 
     @Override
     protected void initVariables() {

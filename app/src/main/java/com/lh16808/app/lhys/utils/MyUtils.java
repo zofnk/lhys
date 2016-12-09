@@ -4,9 +4,12 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.SystemClock;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -15,11 +18,11 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 
 import com.lh16808.app.lhys.activity.LoginActivity;
+import com.lh16808.app.lhys.marco.ApiConfig;
 import com.lh16808.app.lhys.marco.Constants;
 import com.lh16808.app.lhys.model.Lottery;
 import com.lh16808.app.lhys.model.User;
 import com.lh16808.app.lhys.other.MyProgressDialog;
-import com.lh16808.app.lhys.utils.dataUtils.DateFormatUtils;
 import com.lh16808.app.lhys.utils.http.H;
 import com.lh16808.app.lhys.utils.http.Util;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -116,14 +119,18 @@ public class MyUtils {
     }
 
     public static long getTotalTime() {
-        String nowTime = DateFormatUtils.getCurrentTime();
-        String lotteryTime = DateFormatUtils.formatWithYMDHms(Lottery.RefreshTime * 1000);
-        if (Lottery.RefreshTime == 0) {
-            return 0;
-        }
-        Log.e(TAG, "nowTime:" + nowTime + "lotteryTime" + lotteryTime);
-        //計算出當前時間離開獎時間的時間差（毫秒單位）
-        return DateFormatUtils.getTimeDifference(nowTime, lotteryTime);
+//        String nowTime = DateFormatUtils.getCurrentTime();
+//        String lotteryTime = DateFormatUtils.formatWithYMDHms(Lottery.RefreshTime * 1000);
+//        if (Lottery.RefreshTime == 0) {
+//            return 0;
+//        }
+//        Log.e(TAG, "nowTime:" + nowTime + "lotteryTime" + lotteryTime);
+//        //計算出當前時間離開獎時間的時間差（毫秒單位）
+//        return DateFormatUtils.getTimeDifference(nowTime, lotteryTime);
+        long l = Long.parseLong(Lottery.getLottery().xyqsjc) * 1000;
+        long l1 = System.currentTimeMillis();
+        long l2 = l - l1;
+        return l2;
     }
 
     public static int SXSJ() {
@@ -196,6 +203,16 @@ public class MyUtils {
     }
 
 
+    public static void startActivity(Context context, Class<?> cls) {
+        Intent intent = new Intent(context, cls);
+        context.startActivity(intent);
+    }
+
+    public static void startActivity(Context context, Class<?> cls, String bs) {
+        Intent intent = new Intent(context, cls);
+        intent.putExtra("biaoshi", bs);
+        context.startActivity(intent);
+    }
     public static void collect(final Context context, String id, String classid) {
         AppLog.redLog("xxxxxxxxxx", "" + id + "-classid:" + classid);
         if (MyUtils.getUser(context)) {
@@ -261,5 +278,26 @@ public class MyUtils {
                 ToastUtil.toastShow(context, "網絡錯誤~");
             }
         });
+    }
+
+    public static String[] getType() {
+        String[] Str = new String[Constants.caipiaoUrl.length];
+        for (int i = 0; i < Constants.caipiaoUrl.length; i++) {
+            Str[i] = ApiConfig.getBaseUrl(Constants.caipiaoUrl[i]);
+        }
+        return Str;
+    }
+
+    public static AlertDialog.Builder getConfirmDialog(Context context, String message, DialogInterface.OnClickListener onClickListener) {
+        AlertDialog.Builder builder = getDialog(context);
+        builder.setMessage(Html.fromHtml(message));
+        builder.setPositiveButton("确定", onClickListener);
+        builder.setNegativeButton("取消", null);
+        return builder;
+    }
+
+    public static AlertDialog.Builder getDialog(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        return builder;
     }
 }

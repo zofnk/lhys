@@ -38,6 +38,11 @@ public class ZiliaoDetailActivity extends BaseActivity {
     private String classid;
 
     @Override
+    protected void initLoadData() {
+
+    }
+
+    @Override
     protected void initVariables() {
     }
 

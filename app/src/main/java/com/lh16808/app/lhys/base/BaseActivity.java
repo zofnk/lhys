@@ -2,14 +2,23 @@ package com.lh16808.app.lhys.base;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
 
 /**
  * 基类Activity
  */
 public abstract class BaseActivity extends AppCompatActivity {
+//    protected MyDialog myDialog;
+
+    /**
+     * 初始化变量，包括Intent带的数据和Activity内的变量
+     */
+    protected abstract void initLoadData();
+
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量
      */
@@ -32,6 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         BaseAPP.getInstance().addActivity(this);
         super.onCreate(savedInstanceState);
         setBarTin();
+        initLoadData();
         initViews(savedInstanceState);
         initVariables();
         loadData();
@@ -65,17 +75,37 @@ public abstract class BaseActivity extends AppCompatActivity {
         finish();
     }
 
-//    protected MyDialog myDialog;
 
     public void onClickShare(View view) {
 //        myDialog = new MyDialog(this);
 //        myDialog.show(getSupportFragmentManager(), null);
     }
 
+    /*public void onError(View view) {
+        if (!CommonUtils.isNetConnectionAvailable(this)) {
+            ToastUtil.toastShow(this, getString(R.string.net_error));
+            return;
+        }
+        findViewById(R.id.data).setVisibility(View.VISIBLE);
+        findViewById(R.id.ll_error).setVisibility(View.GONE);
+        loadData();
+    }*/
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 //        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        RequestPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, new RequestPermissions.PermissionCallBack() {
+//            @Override
+//            public void setOnPermissionListener(Boolean bo) {
+//
+//            }
+//        });
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//    }
     }
 }

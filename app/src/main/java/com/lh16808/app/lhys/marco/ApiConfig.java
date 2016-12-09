@@ -14,23 +14,6 @@ import java.util.Random;
 public class ApiConfig {
     private static final String TAG = "ApiConfig";
     private static final Random RANDOM = new Random();
-
-    public static int getRandomCheeseDrawable() {
-        switch (RANDOM.nextInt(5)) {
-            default:
-            case 0:
-                return R.drawable.cheese_1;
-            case 1:
-                return R.drawable.cheese_2;
-            case 2:
-                return R.drawable.cheese_3;
-            case 3:
-                return R.drawable.cheese_4;
-            case 4:
-                return R.drawable.cheese_5;
-        }
-    }
-
     /**
      * 基础地址
      */
@@ -40,7 +23,7 @@ public class ApiConfig {
     public static String BASE_URL_KJ; //历史开奖记录
     public static String BASE_URL_AD;//广告基地址
     public static String BASE_URL_ZL;// 文字资料url
-    public static Boolean IS_LOG = true; // 是否开启Log打印
+    public static Boolean IS_LOG = false; // 是否开启Log打印
 
     public static void init(Context context) {
         ALL = context.getString(R.string.all_url);
@@ -196,7 +179,7 @@ public class ApiConfig {
      * wap
      * 开奖2
      */
-    public static final String IosKJ = "e/extend/json/json.php?enews=IosKj";
+    public static final String KJ = "kjbm.json";
     public static final String JsonXML = "http://120.76.44.201:8090/ceshi.json";
 
     /**
@@ -242,4 +225,70 @@ public class ApiConfig {
      */
 
     public static String BIANJI = "e/DoInfo/ecms.php";
+
+    /**
+     * wap
+     * 检查更新
+     */
+    public static String UPGRUDE = "e/extend/json/sz.php?enews=6hds";
+
+    /**
+     * 彩票专区：
+     */
+    // 大乐透：http://app.jizhou56.com:8090/daletou.php
+    public static String Web_DaLeTou = "daletou.php";
+    // 福彩3D：http://app.jizhou56.com:8090/3d.php
+    public static String Web_FuCai3D = "3d.php";
+    // 排列3：http://app.jizhou56.com:8090/pl3.php
+    public static String Web_PaiLie3 = "pl3.php";
+    // 排列5：http://app.jizhou56.com:8090/pl5.php
+    public static String Web_PaiLie5 = "pl5.php";
+    // 七乐彩：http://app.jizhou56.com:8090/qlc.php
+    public static String Web_QiLeCai = "qlc.php";
+    // 七星彩：http://app.jizhou56.com:8090/qxc.php
+    public static String Web_QiXingCai = "qxc.php";
+    // 双色球：http://app.jizhou56.com:8090/ssq.php
+    public static String Web_ShuangSeQiu = "ssq.php";
+    // 体彩36选7：http://app.jizhou56.com:8090/fjtc36x7.php
+    public static String Web_TiCai37X7 = "fjtc36x7.php";
+    // 重庆时时彩：http://app.jizhou56.com:8090/cqssc.php
+    public static String Web_ShiShiCai_CQ = "cqssc.php";
+    // 黑龙江时时彩：http://app.jizhou56.com:8090/hljssc.php
+    public static String Web_ShiShiCai_HLJ = "hljssc.php";
+    // 吉林时时彩：http://app.jizhou56.com:8090/jlssc.php
+    public static String Web_ShiShiCai_JL = "jlssc.php";
+    // 天津时时彩：http://app.jizhou56.com:8090/tjssc.php
+    public static String Web_ShiShiCai_TJ = "tjssc.php";
+    // 新疆时时彩：http://app.jizhou56.com:8090/xjssc.php
+    public static String Web_ShiShiCai_XJ = "xjssc.php";
+    // 云南时时彩：http://app.jizhou56.com:8090/ynssc.php
+    public static String Web_ShiShiCai_YN = "ynssc.php";
+    public static String Web_ShiShiCai_AW = "ah11x5.php"; // 安徽11选5
+    public static String Web_ShiShiCai_BJ = "bj11x5.php";// 北京11选5
+    public static String Web_ShiShiCai_FJ = "fj11x5.php";// 福建11选5
+    public static String Web_ShiShiCai_GD = "gd11x5.php";// 广东11选5
+    public static String Web_ShiShiCai_GS = "gs11x5.php";// 甘肃11选5
+    public static String Web_ShiShiCai_GX = "gx11x5.php";// 广西11选5
+    public static String Web_ShiShiCai_GZ = "gz11x5.php";// 贵州11选5
+    public static String Web_ShiShiCai_HB = "heb11x5.php";// 河北11选5
+    public static String Web_ShiShiCai_HN = "hen11x5.php";// 河南11选5
+    public static String Web_ShiShiCai_HLJ11x5 = "hlj11x5.php";// 黑龙江11选5
+    public static String Web_ShiShiCai_HuBbei = "hub11x5.php";// 湖北11选5
+    public static String Web_ShiShiCai_JiLin = "jl11x5.php";// 吉林11选5
+    public static String Web_ShiShiCai_JiangSu = "js11x5.php ";// 江苏11选5
+    public static String Web_ShiShiCai_JiangXi = "jx11x5.php ";// 江西11选5
+    public static String Web_ShiShiCai_LiaoLing = "ln11x5.php";// 辽宁11选5
+    public static String Web_ShiShiCai_NeiMengGu = "nmg11x5.php";// 内蒙古11选5
+    public static String Web_ShiShiCai_SiCuan = "sc11x5.php";// 四川11选5
+    public static String Web_ShiShiCai_ShanDong = "sd11x5.php";// 山东11选5
+    public static String Web_ShiShiCai_ShangHai = "sh11x5.php";// 上海11选5
+    public static String Web_ShiShiCai_ShangXi = "sxl11x5.php";// 陕西11选5
+    public static String Web_ShiShiCai_ShanXi = "sxr11x5.php";// 山西11选5
+    public static String Web_ShiShiCai_TianJin = "tj11x5.php";// 天津11选5
+    public static String Web_ShiShiCai_XinJiang = "xj11x5.php";// 新疆11选5
+    public static String Web_ShiShiCai_YunNan = "yn11x5.php";// 云南11选5
+    public static String Web_ShiShiCai_ZheJiang = "zj11x5.php";// 浙江11选5
+
+    // 足球比分
+    public static String ZQBF = "bifen.php";
 }

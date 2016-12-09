@@ -3,6 +3,7 @@ package com.lh16808.app.lhys.other;
 import android.util.Xml;
 
 import com.lh16808.app.lhys.model.Lottery;
+import com.lh16808.app.lhys.utils.AppLog;
 import com.lh16808.app.lhys.utils.http.H;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -30,7 +31,52 @@ public class KaiJianLoad {
 
     public void setOnNetData(OnNetData onNetData) {
         this.onNetData = onNetData;
-        initXmlData();
+//        initXmlData();
+        kj();
+    }
+
+    private void kj() {
+        H.LOADKJ(new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String json = new String(responseBody);
+                try {
+                    JSONObject jsonObject = new JSONObject(json);
+                    lottery.bq = jsonObject.getString("bq");
+                    lottery.zt = jsonObject.getString("zt");
+                    lottery.z1m = jsonObject.getString("z1m");
+                    lottery.z1sx = jsonObject.getString("z1sx");
+                    lottery.z2m = jsonObject.getString("z2m");
+                    lottery.z2sx = jsonObject.getString("z2sx");
+                    lottery.z3m = jsonObject.getString("z3m");
+                    lottery.z3sx = jsonObject.getString("z3sx");
+                    lottery.z4m = jsonObject.getString("z4m");
+                    lottery.z4sx = jsonObject.getString("z4sx");
+                    lottery.z5m = jsonObject.getString("z5m");
+                    lottery.z5sx = jsonObject.getString("z5sx");
+                    lottery.z6m = jsonObject.getString("z6m");
+                    lottery.z6sx = jsonObject.getString("z6sx");
+                    lottery.tm = jsonObject.getString("tm");
+                    lottery.tmsx = jsonObject.getString("tmsx");
+                    lottery.sxsj = jsonObject.getString("sxsj");
+                    lottery.xyqsx = jsonObject.getString("xyqsj");
+                    lottery.xq = jsonObject.getString("xq");
+                    lottery.xyq = jsonObject.getString("xyq");
+                    lottery.xyqsjc = jsonObject.getString("xyqsjc");
+//                    lottery.setData(bq, zt, z1m, z1sx, z2m, z2sx, z3m, z3sx, z4m, z4sx, z5m, z5sx, z6m, z6sx, tm, tmsx, sxsj, xyqsj, xq, xyq);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                AppLog.redLog("KJ", "" + lottery.toString());
+//                time();
+                onNetData.onScuss();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                onNetData.onError();
+            }
+        });
     }
 
     public interface OnNetData {
@@ -41,7 +87,9 @@ public class KaiJianLoad {
         void onTime();
     }
 
-    public void initXmlData() {
+
+
+    /*public void initXmlData() {
         H.initXmlData(new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -112,5 +160,5 @@ public class KaiJianLoad {
                 onNetData.onError();
             }
         });
-    }
+    }*/
 }

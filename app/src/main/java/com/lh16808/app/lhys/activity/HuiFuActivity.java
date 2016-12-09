@@ -36,6 +36,11 @@ import cz.msebera.android.httpclient.conn.util.InetAddressUtils;
 public class HuiFuActivity extends BaseActivity {
 
     @Override
+    protected void initLoadData() {
+
+    }
+
+    @Override
     protected void initVariables() {
         Intent intent = getIntent();
         final String title = intent.getStringExtra("title");
