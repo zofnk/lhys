@@ -25,9 +25,11 @@ import com.lh16808.app.lhys.activity.HistoryRecordActivity;
 import com.lh16808.app.lhys.activity.KJVideoActivity;
 import com.lh16808.app.lhys.activity.LottoActivity;
 import com.lh16808.app.lhys.activity.MysteryActivity;
+import com.lh16808.app.lhys.activity.NatureActivity;
 import com.lh16808.app.lhys.activity.TuKuActivity;
 import com.lh16808.app.lhys.activity.ZiliaoActivity;
 import com.lh16808.app.lhys.engine.OnTouchAnim;
+import com.lh16808.app.lhys.marco.ApiConfig;
 import com.lh16808.app.lhys.marco.Constants;
 import com.lh16808.app.lhys.model.BannerData;
 import com.lh16808.app.lhys.model.BannerUrl;
@@ -56,6 +58,7 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.lh16808.app.lhys.R.id.beginning;
 import static com.lh16808.app.lhys.R.id.imageView;
 
 
@@ -203,6 +206,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         items6.setOnTouchListener(new OnTouchAnim());
         items6.setOnClickListener(this);
 
+        View mRlvScro = view.findViewById(R.id.rlvScro);
+        mRlvScro.setOnTouchListener(new OnTouchAnim());
+        mRlvScro.setOnClickListener(this);
+
+        View mRlvBaijl = view.findViewById(R.id.rltBjl);
+        mRlvBaijl.setOnTouchListener(new OnTouchAnim());
+        mRlvBaijl.setOnClickListener(this);
+
+        View mRltZous = view.findViewById(R.id.rlvZous);
+        mRltZous.setOnTouchListener(new OnTouchAnim());
+        mRltZous.setOnClickListener(this);
+
+        View mRltShux = view.findViewById(R.id.rltShux);
+        mRltShux.setOnTouchListener(new OnTouchAnim());
+        mRltShux.setOnClickListener(this);
+
         mTvLotteryTimeDay = (TextView) view.findViewById(R.id.tv_kjsj_tian);
         mTvLotteryTimeHour = (TextView) view.findViewById(R.id.tv_kjsj_shi);
         mTvLotteryTimeMinute = (TextView) view.findViewById(R.id.tv_kjsj_fen);
@@ -262,6 +281,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.ll_main_item6:
                 startActivity2(5);
+                break;
+            case R.id.rltBjl:
+                Intent intentBjl = new Intent();
+                intentBjl.setClass(getContext() , LottoActivity.class);
+                intentBjl.putExtra("web_title", "百家樂");
+                intentBjl.putExtra("web_key", ApiConfig.getBaseUrl("baijiale.html"));
+                getActivity().startActivity(intentBjl);
+                break;
+            case R.id.rlvScro:
+                Intent intentScro = new Intent();
+                intentScro.setClass(getContext() , LottoActivity.class);
+                intentScro.putExtra("web_title", "足球比分");
+                intentScro.putExtra("web_key", ApiConfig.getBaseUrl(ApiConfig.ZQBF));
+                getActivity().startActivity(intentScro);
+                break;
+            case R.id.rlvZous:
+                Intent intentZous = new Intent();
+                intentZous.setClass(getContext() , LottoActivity.class);
+                intentZous.putExtra("web_key", "web_zoushi");
+                getActivity().startActivity(intentZous);
+                break;
+            case R.id.rltShux:
+                NatureActivity.start(getContext());
                 break;
         }
     }

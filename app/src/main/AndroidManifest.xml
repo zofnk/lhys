@@ -135,6 +135,9 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.NatureActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

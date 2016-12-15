@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,10 +17,13 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.lh16808.app.lhys.R;
 import com.lh16808.app.lhys.base.BaseActivity;
 import com.lh16808.app.lhys.engine.OnTouchAnim;
@@ -46,16 +50,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class PeopleDataActivity extends BaseActivity implements View.OnClickListener {
+import static java.security.AccessController.getContext;
 
-    public static void start(Context context) {
-        Intent starter = new Intent(context, PeopleDataActivity.class);
-        context.startActivity(starter);
-    }
+public class PeopleDataActivity extends BaseActivity implements View.OnClickListener {
 
     private User user;
     private CircleImageView ivHead;
@@ -83,9 +85,22 @@ public class PeopleDataActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_people_data);
+        findViewById(R.id.tv_share).setVisibility(View.GONE);
         user = User.getUser();
         initUI();
-        initData();
+    }
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, PeopleDataActivity.class);
+        context.startActivity(starter);
+    }
+
+    @Override
+    protected void onStart() {
+        if (TextUtils.isEmpty(User.getUser().getHym())) {
+            finish();
+        }
+        super.onStart();
     }
 
     private void initData() {
@@ -116,8 +131,6 @@ public class PeopleDataActivity extends BaseActivity implements View.OnClickList
                         user.setOicq(oicq);
                         String userpic = jsonObject.getString("userpic");
                         user.setUserpic(userpic);
-//                        MyProgressDialog.dialogHide();
-//                        ProPOPUtils.cancel();
                         if (!TextUtils.isEmpty(truename)) {
                             etName.setText(truename);
                         }
@@ -132,7 +145,11 @@ public class PeopleDataActivity extends BaseActivity implements View.OnClickList
                         }
                         if (!TextUtils.isEmpty(userpic)) {
                             if (!PeopleDataActivity.this.isFinishing())
-                                ImageLoader.LoaderNetHead(PeopleDataActivity.this, userpic, ivHead);
+//                                ImageLoader.LoaderNetHead(PeopleDataActivity.this, userpic, ivHead);
+                                Glide.with(PeopleDataActivity.this)
+                                        .load(userpic)
+                                        .into(ivHead)
+                                        .onStart();
                         }
 
                     } else {
@@ -147,8 +164,11 @@ public class PeopleDataActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 MyProgressDialog.dialogHide();
-                Toast.makeText(PeopleDataActivity.this, "獲取失敗~", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(PeopleDataActivity.this, "獲取失敗~", Toast.LENGTH_SHORT).show();
+                ToastUtil.toastShow(PeopleDataActivity.this, getString(R.string.net_error));
                 boolean destroyed = PeopleDataActivity.this.isFinishing();
+                findViewById(R.id.data).setVisibility(View.GONE);
+                findViewById(R.id.ll_error).setVisibility(View.VISIBLE);
             }
         });
     }
@@ -184,7 +204,7 @@ public class PeopleDataActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void loadData() {
-
+        initData();
     }
 
     public static final String IMAGE_UNSPECIFIED = "image/*";
@@ -433,7 +453,7 @@ public class PeopleDataActivity extends BaseActivity implements View.OnClickList
                         // 裁剪
                         crop(uri);
                     } else {
-                        ToastUtil.toastShow(this, "拍照失败");
+                        ToastUtil.toastShow(this, "拍照失敗");
                     }
                     break;
                 case 2: // 本地相册--头像
@@ -446,10 +466,14 @@ public class PeopleDataActivity extends BaseActivity implements View.OnClickList
                     try {
                         final Uri resultUri = UCrop.getOutput(data);
                         bitmap = getBitmapFromUri(resultUri);
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
                         byte[] bytes = baos.toByteArray();
-                        ImageLoader.LoaderNetHead(this, bytes, ivHead);
+                        ImageLoader.LoaderNetHead(this, bytes, ivHead);*/
+                        Glide.with(PeopleDataActivity.this)
+                                .load(resultUri)
+                                .into(ivHead)
+                                .onStart();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -472,7 +496,8 @@ public class PeopleDataActivity extends BaseActivity implements View.OnClickList
     }
 
     private Uri buildUri() {
-        return Uri.fromFile(new File(getCacheDir(), "photo.png"));
+        Date date = new Date();
+        return Uri.fromFile(new File(getCacheDir(), "photo" + date.getTime() + ".png"));
     }
 
     private Bitmap getBitmapFromUri(Uri uri) {

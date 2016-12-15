@@ -36,26 +36,4 @@
     <dimen name="small_margin">4dp</dimen>
     <dimen name="bottom_tab_height">64dp</dimen>
 
-    <integer name="default_title_indicator_line_position">0</integer>
-    <integer name="default_underline_indicator_fade_delay">300</integer>
-    <integer name="default_underline_indicator_fade_length">400</integer>
-    <integer name="default_circle_indicator_orientation">0</integer>
-    <bool name="default_title_indicator_selected_bold">true</bool>
-    <bool name="default_line_indicator_centered">true</bool>
-    <bool name="default_underline_indicator_fades">true</bool>
-    <bool name="default_circle_indicator_centered">true</bool>
-    <bool name="default_circle_indicator_snap">false</bool>
-    <dimen name="default_circle_indicator_radius">3dp</dimen>
-    <dimen name="default_circle_indicator_stroke_width">1dp</dimen>
-    <dimen name="default_line_indicator_line_width">12dp</dimen>
-    <dimen name="default_line_indicator_gap_width">4dp</dimen>
-    <dimen name="default_line_indicator_stroke_width">1dp</dimen>
-    <dimen name="default_title_indicator_clip_padding">4dp</dimen>
-    <dimen name="default_title_indicator_footer_line_height">2dp</dimen>
-    <dimen name="default_title_indicator_footer_indicator_height">4dp</dimen>
-    <dimen name="default_title_indicator_footer_indicator_underline_padding">20dp</dimen>
-    <dimen name="default_title_indicator_footer_padding">7dp</dimen>
-    <dimen name="default_title_indicator_text_size">15dp</dimen>
-    <dimen name="default_title_indicator_title_padding">5dp</dimen>
-    <dimen name="default_title_indicator_top_padding">7dp</dimen>
 </resources>

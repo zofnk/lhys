@@ -58,7 +58,6 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
     private SwipyRefreshLayout srlForum;
     //    ArrayList<ForumModel> morelist = new ArrayList<>();
     private ShowBannerInfo mShowBannerInfo;
-    private List<String> MarqueeInfo = new ArrayList<>();
 
     public static FindFragment newInstance() {
         
@@ -76,12 +75,6 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_find, container, false);
-        MarqueeView marqueeView= (MarqueeView) view.findViewById(R.id.mrvBanner);
-        MarqueeInfo.add("六合运势为您服务");
-        MarqueeInfo.add("欢迎大家关注六合运势");
-        MarqueeInfo.add("六合运势为您服务");
-        marqueeView.startWithList(MarqueeInfo);
-
         initRecycView(view);
         initRefresh(view);
         FloatingActionButton faButton = (FloatingActionButton) view.findViewById(R.id.fabFind);

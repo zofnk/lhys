@@ -23,7 +23,11 @@ public class ImageLoader {
      * @param view
      */
     public static void LoaderNetHead(Context mContext, String url, ImageView view) {
-        Glide.with(mContext).load(url).transform(new GlideCircleTransform(mContext)).placeholder(R.drawable.ico_mine_login_person).error(R.drawable.ico_mine_login_person_error)
+        Glide.with(mContext)
+                .load(url)
+                .transform(new GlideCircleTransform(mContext))
+                .placeholder(R.drawable.ico_mine_login_person)
+                .error(R.drawable.ico_mine_login_person_error)
                 .into(view);
     }
     /**
@@ -34,7 +38,11 @@ public class ImageLoader {
      * @param view
      */
     public static void LoaderNetHead(Context mContext, byte[] b, ImageView view) {
-        Glide.with(mContext).load(b).transform(new GlideCircleTransform(mContext)).placeholder(R.drawable.ico_mine_login_person).error(R.drawable.ico_mine_login_person_error)
+        Glide.with(mContext)
+                .load(b)
+                .transform(new GlideCircleTransform(mContext))
+                .placeholder(R.drawable.ico_mine_login_person)
+                .error(R.drawable.ico_mine_login_person_error)
                 .into(view);
     }
     /**

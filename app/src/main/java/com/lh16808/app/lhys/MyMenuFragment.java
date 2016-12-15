@@ -2,12 +2,14 @@ package com.lh16808.app.lhys;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.audiofx.LoudnessEnhancer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.lh16808.app.lhys.activity.AboutActivity;
 import com.lh16808.app.lhys.activity.LoginActivity;
 import com.lh16808.app.lhys.activity.MyCollectActivity;
@@ -31,11 +34,13 @@ import com.lh16808.app.lhys.utils.SharedPreUtils;
 import com.lh16808.app.lhys.utils.ToastUtil;
 import com.mxn.soul.flowingdrawer_core.MenuFragment;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 import static com.lh16808.app.lhys.R.string.text4;
 
 
@@ -51,6 +56,7 @@ public class MyMenuFragment extends MenuFragment implements View.OnClickListener
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -67,19 +73,29 @@ public class MyMenuFragment extends MenuFragment implements View.OnClickListener
         return setupReveal(view);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(MessageEvent event) {
-        ToastUtil.toastShow(getActivity(), "requestCode:" + event.getType());
         if (event.getType() == 1) {
             Login.OnLoginLoadPic onLoginSucceful = new Login.OnLoginLoadPic() {
                 @Override
                 public void onSucess(String userpic) {
-                    ImageLoader.LoaderNetHead(getContext(), userpic, mIvPhoto);
+//                    ImageLoader.LoaderNetHead(getContext(), userpic, mIvPhoto);
+                    Glide.with(getContext())
+                            .load(userpic)
+                            .into(mIvPhoto)
+                            .onStart();
                 }
 
                 @Override
                 public void onError() {
-
                 }
             };
             Login.loadPic(getActivity(), onLoginSucceful);
@@ -101,7 +117,11 @@ public class MyMenuFragment extends MenuFragment implements View.OnClickListener
         Login.OnLoginLoadPic onLoginSucceful = new Login.OnLoginLoadPic() {
             @Override
             public void onSucess(String userpic) {
-                ImageLoader.LoaderNetHead(getContext(), userpic, mIvPhoto);
+//                ImageLoader.LoaderNetHead(getContext(), userpic, mIvPhoto);
+                Glide.with(getContext())
+                        .load(userpic)
+                        .into(mIvPhoto)
+                        .onStart();
             }
 
             @Override
@@ -221,6 +241,15 @@ public class MyMenuFragment extends MenuFragment implements View.OnClickListener
             startActivity(intent);
         } else {
             ToastUtil.toastShow(context, "你还未登录~");
+        }
+    }
+
+    @Override
+    public void onOpenMenu() {
+        super.onOpenMenu();
+        if (!TextUtils.isEmpty(User.getUser().getHym())) {
+            //打开侧滑菜单更新用户信息
+            setUserInfo();
         }
     }
 }

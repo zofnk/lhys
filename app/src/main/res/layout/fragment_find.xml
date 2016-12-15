@@ -5,24 +5,12 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-    <com.sunfusheng.marqueeview.MarqueeView
-        android:id="@+id/mrvBanner"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="?attr/colorPrimary"
-        android:paddingLeft="20dp"
-        app:mvAnimDuration="1000"
-        app:mvInterval="3000"
-        app:mvSingleLine="true"
-        app:mvTextColor="@color/white"
-        app:mvTextSize="16dp"/>
-
     <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
         android:id="@+id/srl_forum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_refresh"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_weight="1"
         app:srl_direction="both">
 

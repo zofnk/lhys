@@ -633,8 +633,8 @@
 
                 <com.lh16808.app.lhys.widget.RoundedLetterView
                     android:id="@+id/ll_main_item4"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:elevation="5dp"
@@ -645,6 +645,7 @@
                     app:rlv_titleText="玄机"/>
 
                 <com.lh16808.app.lhys.widget.RoundedLetterView
+                    android:id="@+id/rlvZous"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_margin="5dp"
@@ -655,6 +656,7 @@
                     app:rlv_titleText="走势"/>
 
                 <com.lh16808.app.lhys.widget.RoundedLetterView
+                    android:id="@+id/rltShux"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_margin="5dp"
@@ -664,6 +666,37 @@
                     android:layout_gravity="center"
                     app:rlv_titleSize="18dp"
                     app:rlv_titleText="属性"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <com.lh16808.app.lhys.widget.RoundedLetterView
+                    android:id="@+id/rlvScro"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:layout_margin="5dp"
+                    android:elevation="5dp"
+                    android:layout_weight="1"
+                    app:rlv_backgroundColorValue="@color/background_tab_pressed"
+                    app:rlv_titleColor="@color/white"
+                    app:rlv_titleSize="18dp"
+                    app:rlv_titleText="足球比分"/>
+
+                <com.lh16808.app.lhys.widget.RoundedLetterView
+                    android:id="@+id/rltBjl"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:elevation="5dp"
+                    android:layout_gravity="left"
+                    app:rlv_backgroundColorValue="@color/background_tab_pressed"
+                    app:rlv_titleColor="@color/white"
+                    app:rlv_titleSize="18dp"
+                    app:rlv_titleText="百家乐"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -683,7 +716,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/white">
 
-                <com.lh16808.app.lhys.widget.loopviewpager.AutoLoopViewPager
+                <!--<com.lh16808.app.lhys.widget.loopviewpager.AutoLoopViewPager
                     android:id="@+id/pager"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
@@ -696,7 +729,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="5dp"
-                    android:padding="5dp"/>
+                    android:padding="5dp"/>-->
             </RelativeLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>

@@ -70,8 +70,8 @@ public class ForumDetailActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_forum_detail);
-        MyUtils.setStatusBarTranslucent(this);
-        StatusBarCompat.compat(this, getResources().getColor(R.color.colorPrimary));
+//        MyUtils.setStatusBarTranslucent(this);
+//        StatusBarCompat.compat(this, getResources().getColor(R.color.colorPrimary));
         iniUI();
         Intent intent = getIntent();
         if (intent != null) {

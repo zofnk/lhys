@@ -2,7 +2,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="60dp"
-            android:paddingTop="60dp"
+            android:paddingTop="57dp"
             android:scrollbars="none">
 
     <LinearLayout
@@ -11,267 +11,236 @@
         android:fillViewport="true"
         android:orientation="vertical">
 
-        <com.andexert.library.RippleView
+        <RelativeLayout
+            android:id="@+id/rltyCaip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F0FFFF">
+            android:padding="15dp"
+            android:background="#E9F2EC">
 
-            <RelativeLayout
-                android:id="@+id/rltyCaip"
-                android:layout_width="match_parent"
-                android:layout_height="150dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/icon_caipiao"/>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginTop="5dp"
+                    android:text="彩票专区"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@color/btn_orgin_normal"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="彩票专区"
-                        android:textSize="16dp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </com.andexert.library.RippleView>
-
-        <com.andexert.library.RippleView
+        <RelativeLayout
+            android:id="@+id/rltySsc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="#F5E9E3">
 
-            <RelativeLayout
-                android:id="@+id/rltySsc"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="#E0FFFF">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/icon_shishicai"/>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginTop="5dp"
+                    android:text="时时彩"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@color/btn_orgin_normal"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="时时彩"
-                        android:textSize="16dp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </com.andexert.library.RippleView>
-
-        <com.andexert.library.RippleView
+        <RelativeLayout
+            android:id="@+id/rltyRound"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="#F1E4D1">
 
-            <RelativeLayout
-                android:id="@+id/rltyRound"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="#AEEEEE">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/icon_zhuanpan"/>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginTop="5dp"
+                    android:text="幸运转盘 "
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@color/btn_orgin_normal"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="幸运转盘 "
-                        android:textSize="16dp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </com.andexert.library.RippleView>
-
-        <com.andexert.library.RippleView
+        <RelativeLayout
+            android:id="@+id/rltyCard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="#F3EDD3">
 
-            <RelativeLayout
-                android:id="@+id/rltyCard"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="#8EE5EE">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/icon_kapai"/>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginTop="5dp"
+                    android:text="生肖卡牌"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@color/btn_orgin_normal"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="生肖卡牌"
-                        android:textSize="16dp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </com.andexert.library.RippleView>
-
-        <com.andexert.library.RippleView
+        <RelativeLayout
+            android:id="@+id/rltyShake"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="#D5F5E2">
 
-            <RelativeLayout
-                android:id="@+id/rltyShake"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="#97FFFF">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/icon_yaoyiyao"/>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginTop="5dp"
+                    android:text="摇一摇"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@color/btn_orgin_normal"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="摇一摇"
-                        android:textSize="16dp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </com.andexert.library.RippleView>
-
-        <com.andexert.library.RippleView
+        <RelativeLayout
+            android:id="@+id/rltyHgw"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="#A1F5E0">
 
-            <RelativeLayout
-                android:id="@+id/rltyHgw"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="#B2DFEE">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/icon_huangguan"/>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginTop="5dp"
+                    android:text="皇冠网"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@color/btn_orgin_normal"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="皇冠网"
-                        android:textSize="16dp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </com.andexert.library.RippleView>
-
-        <com.andexert.library.RippleView
+        <RelativeLayout
+            android:id="@+id/rltyYlc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="#8AF3CF">
 
-            <RelativeLayout
-                android:id="@+id/rltyYlc"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="#D1EEEE">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/icon_yulecheng"/>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginTop="5dp"
+                    android:text="娱乐城"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@color/btn_orgin_normal"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="娱乐城"
-                        android:textSize="16dp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </com.andexert.library.RippleView>
-        <com.andexert.library.RippleView
+        <RelativeLayout
+            android:id="@+id/rltyLhl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="#D8F3D5">
 
-            <RelativeLayout
-                android:id="@+id/rltyLhl"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="#D1EEEE">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/icon_huangli"/>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@color/btn_orgin_normal"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="老黄历"
-                        android:textSize="16dp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </com.andexert.library.RippleView>
+                    android:layout_marginTop="5dp"
+                    android:text="老黄历"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 </ScrollView>
