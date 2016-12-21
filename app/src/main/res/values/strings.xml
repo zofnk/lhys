@@ -45,6 +45,16 @@
     <string name="lhl_sm">六合每期吉數黃歷</string>
     <string name="lhl_xzrq">選擇日期</string>
 
+    <!-- 分享dialog -->
+    <string name="share_app_name_weixin">微信</string>
+    <string name="share_aapp_name_pyq">朋友圈</string>
+    <string name="share_aapp_name_qq">QQ</string>
+    <string name="share_aapp_name_dx">Qzone</string>
+    <string name="invite_tip">邀請好友</string>
+    <string name="invite_actionbar_title">邀請</string>
+    <string name="invite_two">還可以邀請好友掃描下圖二維碼,直接安裝六合大师哦~(点击图片，保存二维码到本地！)</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

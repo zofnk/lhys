@@ -109,11 +109,23 @@ public class H {
 
     }
 
+    public static void BIANJI(RequestParams p, AsyncHttpResponseHandler a) {
+        AsyncHttpClientUtils.getInstance().post(ApiConfig.getBaseUrl(ApiConfig.BIANJI), p, a);
+    }
+
     public static void USER(RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
         AsyncHttpClientUtils.getInstance().post(ApiConfig.getBaseUrl(ApiConfig.USER), params, asyncHttpResponseHandler);
     }
 
-    public static void BIANJI(RequestParams p, AsyncHttpResponseHandler a) {
-        AsyncHttpClientUtils.getInstance().post(ApiConfig.getBaseUrl(ApiConfig.BIANJI), p, a);
+    public static void UPGRUADE(AsyncHttpResponseHandler a) {
+        AsyncHttpClientUtils.getInstance().get(ApiConfig.getBaseUrl(ApiConfig.UPGRUDE), a);
     }
+    public static void FeedBackURL(RequestParams params, AsyncHttpResponseHandler a){
+        AsyncHttpClientUtils.getInstance().post(ApiConfig.getBaseUrl(ApiConfig.FeedBackURL), params, a);
+    }
+
+    public static void APK_DOWDLAN(AsyncHttpResponseHandler a) {
+        AsyncHttpClientUtils.getInstance().get(ApiConfig.getBaseUrl(ApiConfig.APK_DOWDLAN), a);
+    }
+
 }

@@ -7,12 +7,16 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.lh16808.app.lhys.other.MyDialog;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.UMShareAPI;
+
 
 /**
  * 基类Activity
  */
 public abstract class BaseActivity extends AppCompatActivity {
-//    protected MyDialog myDialog;
+    protected MyDialog myDialog;
 
     /**
      * 初始化变量，包括Intent带的数据和Activity内的变量
@@ -62,12 +66,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-//        MobclickAgent.onResume(this);
+        MobclickAgent.onResume(this);
     }
 
     public void onPause() {
         super.onPause();
-//        MobclickAgent.onPause(this);
+        MobclickAgent.onPause(this);
     }
 
 
@@ -77,8 +81,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     public void onClickShare(View view) {
-//        myDialog = new MyDialog(this);
-//        myDialog.show(getSupportFragmentManager(), null);
+        myDialog = new MyDialog(this);
+        myDialog.show(getSupportFragmentManager(), null);
     }
 
     /*public void onError(View view) {
@@ -94,7 +98,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

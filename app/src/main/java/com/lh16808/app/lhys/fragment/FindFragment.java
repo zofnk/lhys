@@ -40,7 +40,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FindFragment extends Fragment implements View.OnClickListener,SwipyRefreshLayout.OnRefreshListener{
+public class FindFragment extends Fragment implements View.OnClickListener, SwipyRefreshLayout.OnRefreshListener {
 
     private RecyclerView mRecyclerView;
     private ForumAdapter mAdapter;
@@ -60,9 +60,9 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
     private ShowBannerInfo mShowBannerInfo;
 
     public static FindFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         FindFragment fragment = new FindFragment();
         fragment.setArguments(args);
         return fragment;
@@ -73,7 +73,7 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_find, container, false);
         initRecycView(view);
         initRefresh(view);
@@ -81,11 +81,13 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
         faButton.setOnClickListener(this);
         return view;
     }
+
     private void initRefresh(View view) {
         srlForum = (SwipyRefreshLayout) view.findViewById(R.id.srl_forum);
         srlForum.setOnRefreshListener(this);
         autoRefresh(true);
     }
+
     private void initRecycView(View view) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_forum);
         //设置布局管理器
@@ -120,7 +122,8 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
             }
         });
     }
-    private void    autoRefresh(boolean b) {
+
+    private void autoRefresh(boolean b) {
         srlForum.post(new Runnable() {
             @Override
             public void run() {
@@ -247,7 +250,7 @@ public class FindFragment extends Fragment implements View.OnClickListener,Swipy
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.fabFind:
                 if (MyUtils.isFastDoubleClick()) {
                     return;
