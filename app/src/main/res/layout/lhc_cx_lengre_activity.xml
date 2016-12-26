@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <include layout="@layout/tool_bar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <RadioGroup
+                    android:id="@+id/radio_shenghe"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="6dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_1"
+                        style="@style/lhc_RadioStyle"
+                        android:layout_weight="1"
+                        android:background="@drawable/lhc_radio_btn_left"
+                        android:checked="true"
+                        android:text="熱號排序"
+                        android:textSize="16sp"/>
+
+                    <RadioButton
+                        android:id="@+id/radio_2"
+                        style="@style/lhc_RadioStyle"
+                        android:layout_weight="1"
+                        android:background="@drawable/lhc_radio_btn_right"
+                        android:text="冷號排序"
+                        android:textSize="16sp"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:visibility="gone"
+            app:cardElevation="5dp">
+
+            <Button
+                android:id="@+id/btn_reload"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/lhc_btn_shape_white"
+                android:text="重新加載..."/>
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+</LinearLayout>

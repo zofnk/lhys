@@ -16,8 +16,6 @@ import com.lh16808.app.lhys.other.ShowBannerInfo;
 
 public class MysteryActivity extends BaseActivity {
 
-    private RecyclerView mRecyclerView;
-    private ShowBannerInfo mShowBannerInfo;
     private PagerSlidingTabStrip tabs;
     private final String[] TITLES = {"曾道人", "白小姐", "内部资料"};
 
@@ -30,7 +28,7 @@ public class MysteryActivity extends BaseActivity {
     protected void initVariables() {
         View rlBanner = findViewById(R.id.rl_mystery_banner);
         ViewPager vpBanner = (ViewPager) findViewById(R.id.vp_mystery_banner);
-        mShowBannerInfo = new ShowBannerInfo(this, rlBanner, vpBanner);
+        new ShowBannerInfo(this, rlBanner, vpBanner , 1);
     }
 
     @Override
@@ -68,5 +66,4 @@ public class MysteryActivity extends BaseActivity {
             return new MysteryFragment(arg0);
         }
     }
-
 }

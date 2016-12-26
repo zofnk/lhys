@@ -10,6 +10,7 @@ import android.text.TextPaint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +21,8 @@ import com.lh16808.app.lhys.R;
 import com.lh16808.app.lhys.base.BaseActivity;
 import com.lh16808.app.lhys.laohuangli.page.MagicBookView;
 import com.lh16808.app.lhys.laohuangli.page.PageContainer;
+import com.lh16808.app.lhys.utils.ConstantsUtil;
+import com.lh16808.app.lhys.utils.DateTimeUtil;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -58,10 +61,6 @@ public class LaohuangliActivity extends BaseActivity {
         setContentView(R.layout.laohuangli_activity);
         //标题栏
         setActionbar();
-        // 广告子fragment
-//        CycleViewPager mCycleViewPager = (CycleViewPager) getSupportFragmentManager().findFragmentById(R.id.cycleViewPager1);
-        //获取广告
-//        HttpUtils.loadAD(this, mCycleViewPager, ConstantsUtil.AD_CPZQ);
 
         //执行导入.db文件
         LhlSQLitedb.getSQLiteDatabase(LaohuangliActivity.this);
@@ -268,7 +267,7 @@ public class LaohuangliActivity extends BaseActivity {
 
 
         tv_day.setText(calendar.get(Calendar.DATE) + "");
-        tv_day.post(new Runnable() {
+        /*tv_day.post(new Runnable() {
             @Override
             public void run() {
                 float fontScale = getResources().getDisplayMetrics().scaledDensity;
@@ -287,7 +286,31 @@ public class LaohuangliActivity extends BaseActivity {
                     tv_month_ch.setText(tv_month_ch.getText() + "," + calendar.get(Calendar.DATE) + "日");
                 }
             }
+        });*/
+
+        ViewTreeObserver vto = tv_day.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                float fontScale = getResources().getDisplayMetrics().scaledDensity;
+                float size = (int) ((Math.min(tv_day.getHeight() * 0.8f, tv_day.getWidth() * 0.5f) / fontScale + 0.5f) / 5) * 5f;
+                tv_day.setTextSize(size);
+                Rect bounds = new Rect();
+                TextPaint paint = tv_day.getPaint();
+                paint.getTextBounds(tv_day.getText().toString(), 0, tv_day.getText().toString().length(), bounds);
+                int width = bounds.width();
+                if (width > tv_day.getWidth() * 0.9) {
+                    size = (int) ((tv_day.getWidth() * 0.9f / width * size) / 5) * 5f;
+                    tv_day.setTextSize(size);
+                }
+                if (size < 20) {
+                    tv_day.setText("");
+                    tv_month_ch.setText(tv_month_ch.getText() + "," + calendar.get(Calendar.DATE) + "日");
+                }
+            }
         });
+
+
         tv_month_ch.setText(DateTimeUtil.getMonth(calendar).get(0));
         tv_monch_en.setText(DateTimeUtil.getMonth(calendar).get(1));
         tv_year.setText(calendar.get(Calendar.YEAR) + "年");
@@ -393,23 +416,23 @@ public class LaohuangliActivity extends BaseActivity {
 
 
         LinearLayout lin_week = (LinearLayout) view.findViewById(R.id.lin_week);
-        int shengxiao1[]=new int[]{R.mipmap.laohuangli_sx_hou_1,R.mipmap.laohuangli_sx_ji_1,
-                R.mipmap.laohuangli_sx_gou_1,R.mipmap.laohuangli_sx_zhu_1,R.mipmap.laohuangli_sx_shu_1,
-                R.mipmap.laohuangli_sx_niu_1,R.mipmap.laohuangli_sx_hu_1,
-                R.mipmap.laohuangli_sx_tu_1,R.mipmap.laohuangli_sx_long_1,R.mipmap.laohuangli_sx_she_1,
-                R.mipmap.laohuangli_sx_ma_1,R.mipmap.laohuangli_sx_yang_1,};
-        int shengxiao2[]=new int[]{R.mipmap.laohuangli_sx_hou_2,R.mipmap.laohuangli_sx_ji_2,
-                R.mipmap.laohuangli_sx_gou_2,R.mipmap.laohuangli_sx_zhu_2,R.mipmap.laohuangli_sx_shu_2,
-                R.mipmap.laohuangli_sx_niu_2,R.mipmap.laohuangli_sx_hu_2,
-                R.mipmap.laohuangli_sx_tu_2,R.mipmap.laohuangli_sx_long_2,R.mipmap.laohuangli_sx_she_2,
-                R.mipmap.laohuangli_sx_ma_2,R.mipmap.laohuangli_sx_yang_2,};
+        int shengxiao1[] = new int[]{R.mipmap.laohuangli_sx_hou_1, R.mipmap.laohuangli_sx_ji_1,
+                R.mipmap.laohuangli_sx_gou_1, R.mipmap.laohuangli_sx_zhu_1, R.mipmap.laohuangli_sx_shu_1,
+                R.mipmap.laohuangli_sx_niu_1, R.mipmap.laohuangli_sx_hu_1,
+                R.mipmap.laohuangli_sx_tu_1, R.mipmap.laohuangli_sx_long_1, R.mipmap.laohuangli_sx_she_1,
+                R.mipmap.laohuangli_sx_ma_1, R.mipmap.laohuangli_sx_yang_1,};
+        int shengxiao2[] = new int[]{R.mipmap.laohuangli_sx_hou_2, R.mipmap.laohuangli_sx_ji_2,
+                R.mipmap.laohuangli_sx_gou_2, R.mipmap.laohuangli_sx_zhu_2, R.mipmap.laohuangli_sx_shu_2,
+                R.mipmap.laohuangli_sx_niu_2, R.mipmap.laohuangli_sx_hu_2,
+                R.mipmap.laohuangli_sx_tu_2, R.mipmap.laohuangli_sx_long_2, R.mipmap.laohuangli_sx_she_2,
+                R.mipmap.laohuangli_sx_ma_2, R.mipmap.laohuangli_sx_yang_2,};
         int color = 0xffAD5800;
-        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+        if (calendar.get(Calendar.DAY_OF_WEEK) == 1 || calendar.get(Calendar.DAY_OF_WEEK) == 7) {
             color = 0xffCA0204;
-            lin_week.setBackgroundResource(shengxiao2[solarToLunar[0]% 12]);
+            lin_week.setBackgroundResource(shengxiao2[solarToLunar[0] % 12]);
         } else {
             color = 0xffAD5800;
-            lin_week.setBackgroundResource(shengxiao1[solarToLunar[0]% 12]);
+            lin_week.setBackgroundResource(shengxiao1[solarToLunar[0] % 12]);
         }
 
         tv_day.setTextColor(color);

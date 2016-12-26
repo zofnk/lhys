@@ -1,4 +1,4 @@
-package com.lh16808.app.lhys.laohuangli;
+package com.lh16808.app.lhys.utils;
 
 
 import java.util.ArrayList;
@@ -7,7 +7,28 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * 公历农历转换，日期操作
+ */
 public class DateTimeUtil {
+    // 今年
+    public static int GetYear() {
+        Calendar c = Calendar.getInstance();
+        int y = c.get(Calendar.YEAR);
+        return y;
+    }
+
+    //1976-今年
+    public static String[] getYear() {
+        int i = GetYear();
+        int i2 = 1975;
+        String[] provinceList = new String[i - i2];
+        for (int j = 0; j < i - i2; j++) {
+            provinceList[j] = (i - j + "");
+        }
+        return provinceList;
+    }
+
     static String[] chineseMonth = {"壹月大", "二月小", "三月大", "四月小", "五月大", "六月小", "七月大",
             "八月大", "九月小", "十月大", "十壹月小", "十二月大"};
     static String[] englishMonth = {"January", "February", "March", "April", "May", "June", "July", "August",
@@ -112,7 +133,7 @@ public class DateTimeUtil {
      * // 计算时带[ ]的数表示舍去小数点后的数字取整。
      *
      * @param year
-     * @param month
+     * @param month 1-12
      * @param day
      * @return
      */
@@ -205,16 +226,23 @@ public class DateTimeUtil {
             0x0D5252, 0x0DAA47, 0x66B53B, 0x056D4F, 0x04AE45, 0x4A4EB9, 0x0A4D4C, 0x0D1541, 0x2D92B5          /*2091-2099*/
     };
 
+    public static final int[] solarToLunar(Calendar calendar) {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DATE);
+        return solarToLunar(year, month, day);
+    }
 
     /**
      * 将公历日期转换为农历日期，且标识是否是闰月
      *
      * @param year
-     * @param month
+     * @param month    1-12
      * @param monthDay
      * @return 返回公历日期对应的农历日期，0：year，1：month，2：day，3：leap是否闰月，4:0小月，1大月
      */
     public static final int[] solarToLunar(int year, int month, int monthDay) {
+
         int[] lunarDate = new int[5];
         Date baseDate = new GregorianCalendar(1900, 0, 31).getTime();//获取1900年1月31日日期
         Date objDate = new GregorianCalendar(year, month - 1, monthDay).getTime();//传入的日期

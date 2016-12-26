@@ -1,18 +1,27 @@
 package com.lh16808.app.lhys.fragment;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lh16808.app.lhys.MainActivity;
 import com.lh16808.app.lhys.R;
+import com.lh16808.app.lhys.activity.ChaxunZhushouActivity;
 import com.lh16808.app.lhys.activity.ForumActivity;
 import com.lh16808.app.lhys.activity.HistoryRecordActivity;
 import com.lh16808.app.lhys.activity.KJVideoActivity;
@@ -28,10 +38,10 @@ import com.lh16808.app.lhys.activity.MysteryActivity;
 import com.lh16808.app.lhys.activity.NatureActivity;
 import com.lh16808.app.lhys.activity.TuKuActivity;
 import com.lh16808.app.lhys.activity.ZiliaoActivity;
+import com.lh16808.app.lhys.activity.ZoushifenxiActivity;
 import com.lh16808.app.lhys.engine.OnTouchAnim;
 import com.lh16808.app.lhys.marco.ApiConfig;
 import com.lh16808.app.lhys.marco.Constants;
-import com.lh16808.app.lhys.model.BannerData;
 import com.lh16808.app.lhys.model.BannerUrl;
 import com.lh16808.app.lhys.model.Lottery;
 import com.lh16808.app.lhys.other.KaiJianLoad;
@@ -39,10 +49,14 @@ import com.lh16808.app.lhys.other.MyProgressDialog;
 import com.lh16808.app.lhys.other.ShowBannerInfo;
 import com.lh16808.app.lhys.service.LottoService;
 import com.lh16808.app.lhys.utils.AppLog;
+import com.lh16808.app.lhys.utils.DialogUtils;
 import com.lh16808.app.lhys.utils.MyUtils;
 import com.lh16808.app.lhys.utils.SharedPreUtils;
+import com.lh16808.app.lhys.utils.ShowBanner;
 import com.lh16808.app.lhys.utils.dataUtils.DateFormatUtils;
 import com.lh16808.app.lhys.utils.http.AsyncHttpClientUtils;
+import com.lh16808.app.lhys.utils.http.ConnectionUtils;
+import com.lh16808.app.lhys.utils.http.H;
 import com.lh16808.app.lhys.widget.RandomTextView;
 import com.lh16808.app.lhys.widget.loopviewpager.AutoLoopViewPager;
 import com.lh16808.app.lhys.widget.loopviewpager.CirclePageIndicator;
@@ -58,19 +72,14 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
-import static com.lh16808.app.lhys.R.id.beginning;
-import static com.lh16808.app.lhys.R.id.imageView;
+import static com.lh16808.app.lhys.MainActivity.mContext;
+import static com.lh16808.app.lhys.R.id.marqueeView;
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    private AutoLoopViewPager pager;
-    private CirclePageIndicator indicator;
-    private GalleryPagerAdapter galleryAdapter;
-    private List<BannerUrl> bannerList = new ArrayList<>();
 
     public static String TAG = HomeFragment.class.getName();
-
     Class[] classes = {HistoryRecordActivity.class, LottoActivity.class, ForumActivity.class, MysteryActivity.class, ZiliaoActivity.class, TuKuActivity.class};
     private View view;
     //    private RecyclerView mRecyclerView;
@@ -94,7 +103,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TextView tv_z6sx;
     private TextView tv_tmsx;
     private MediaPlayer mediaPlayer;
-
     private KaiJianLoad kaiJianLoad = new KaiJianLoad();
     private Handler handler = new Handler();
     private CountDownTimer mCountDownTimer;
@@ -106,7 +114,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private Intent mService;
     LottoService.LottoBinder mBinder;
     private RandomTextView tvResultBQ;
-    private List<String> MarqueeInfo = new ArrayList<>();
+    private MarqueeView mMarqueeView;
+    private ShowBanner mShowBanner;
+    private NetworkReceiver myNetReceiver;
 
     public static HomeFragment newInstance() {
         Bundle args = new Bundle();
@@ -118,19 +128,62 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public HomeFragment() {
     }
 
+    /////////////监听网络状态变化的广播接收器
+    public class NetworkReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeInfo = manager.getActiveNetworkInfo();
+            if (activeInfo != null) { //网络连接
+                if (mShowBanner != null) {
+                    int size = mShowBanner.getListimg().size();
+                    if (size == 0) {
+                        mShowBanner.getBannerInfo();
+                    }
+                }
+            } else { //网络断开
+                Log.e(TAG, "onReceive: 测试：网络断开");
+            }
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_home, container, false);
+            initBanner();
             initVariables(view);
             loadData();
             load();
+            if (!ConnectionUtils.isConnected(mContext)) {
+                DialogUtils.showNotNetWork(mContext);
+                return view;
+            }
+        } else {
+            mShowBanner.runAction();
         }
-
-//        pager = (AutoLoopViewPager) view.findViewById(R.id.pager);
-//        indicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
-//        getBannerInfo();
+        //动态注册广播
+        myNetReceiver = new NetworkReceiver();
+        IntentFilter mFilter = new IntentFilter();
+        mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        mContext.registerReceiver(myNetReceiver, mFilter);
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        mShowBanner.removeAction();
+        if (myNetReceiver != null) {
+            mContext.unregisterReceiver(myNetReceiver);
+        }
+        super.onDestroyView();
+    }
+
+    private void initBanner() {
+        LinearLayout ll_dot = (LinearLayout) view.findViewById(R.id.ll_fragment_homepage_banner_dot);
+        ViewPager vp_banner = (ViewPager) view.findViewById(R.id.vp_fragment_homepage_banner);
+        mShowBanner = new ShowBanner().show(mContext, 0, null, ll_dot, vp_banner);
     }
 
     private void load() {
@@ -177,18 +230,31 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    private void initVariables(View view) {
-//        initRandomTextView();
+    @Override
+    public void onStart() {
+        mShowBanner.runAction();
+        super.onStart();
+    }
 
-        MarqueeView marqueeView = (MarqueeView) view.findViewById(R.id.marqueeView);
-        MarqueeInfo.add("1. wwww.16808.com");
-        MarqueeInfo.add("2. 欢迎大家关注六合运势");
-        MarqueeInfo.add("3. 六合运势为您服务");
-        marqueeView.startWithList(MarqueeInfo);
+    @Override
+    public void onStop() {
+        mShowBanner.removeAction();
+        super.onStop();
+    }
+
+    private void initVariables(View view) {
+
+        //跑马灯
+        mMarqueeView = (MarqueeView) view.findViewById(marqueeView);
+        mMarqueeView.setOnItemClickListener(new MarqueeListener());
 
         View items1 = view.findViewById(R.id.ll_main_item1);
         items1.setOnTouchListener(new OnTouchAnim());
         items1.setOnClickListener(this);
+
+        View chaxunzhushou = view.findViewById(R.id.rltCxzs);
+        chaxunzhushou.setOnTouchListener(new OnTouchAnim());
+        chaxunzhushou.setOnClickListener(this);
 
         View items2 = view.findViewById(R.id.ll_main_item2);
         items2.setOnTouchListener(new OnTouchAnim());
@@ -249,13 +315,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         tvResultBQ = (RandomTextView) view.findViewById(R.id.tv_main_Result_bq);
     }
 
-    /*private void initRandomTextView() {
-        mRandomTextView.setText("123");
-        mRandomTextView.setPianyilian(RandomTextView.FIRSTF_FIRST);
-        mRandomTextView.start();
-    }
-*/
-
     @Override
     public void onClick(View v) {
         if (MyUtils.isFastDoubleClick()) {
@@ -284,23 +343,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.rltBjl:
                 Intent intentBjl = new Intent();
-                intentBjl.setClass(getContext() , LottoActivity.class);
+                intentBjl.setClass(getContext(), LottoActivity.class);
                 intentBjl.putExtra("web_title", "百家樂");
                 intentBjl.putExtra("web_key", ApiConfig.getBaseUrl("baijiale.html"));
                 getActivity().startActivity(intentBjl);
                 break;
             case R.id.rlvScro:
                 Intent intentScro = new Intent();
-                intentScro.setClass(getContext() , LottoActivity.class);
+                intentScro.setClass(getContext(), LottoActivity.class);
                 intentScro.putExtra("web_title", "足球比分");
                 intentScro.putExtra("web_key", ApiConfig.getBaseUrl(ApiConfig.ZQBF));
                 getActivity().startActivity(intentScro);
                 break;
             case R.id.rlvZous:
-                Intent intentZous = new Intent();
-                intentZous.setClass(getContext() , LottoActivity.class);
-                intentZous.putExtra("web_key", "web_zoushi");
-                getActivity().startActivity(intentZous);
+                ZoushifenxiActivity.start(getContext());
+                break;
+            case R.id.rltCxzs:
+                ChaxunZhushouActivity.start(getContext());
                 break;
             case R.id.rltShux:
                 NatureActivity.start(getContext());
@@ -357,6 +416,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     countDown();
             }
         });
+        loadMarQueeData();
     }
 
     private void Data() {
@@ -440,30 +500,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }, 100);
     }
 
-    /**
-     * 获取广告信息
-     */
-    private void getBannerInfo() {
-        AsyncHttpClientUtils.getInstance().get(Constants.AD_HOME, new AsyncHttpResponseHandler() {
+    private void loadMarQueeData() {
+        H.GGXXUrl(null, new AsyncHttpResponseHandler() {
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String arg0 = new String(responseBody);
+                String json = new String(responseBody);
+                JSONArray array = null;
                 try {
-                    JSONArray jsonArray = new JSONArray(arg0);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String title = jsonObject.getString("title");
-                        String titlepic = jsonObject.getString("titlepic");
-                        BannerUrl bannerUrl = new BannerUrl();
-                        bannerUrl.setTitle(title);
-                        bannerUrl.setTitlepic(titlepic);
-                        bannerList.add(bannerUrl);
-                        galleryAdapter = new GalleryPagerAdapter();
-                        pager.setAdapter(galleryAdapter);
-                        indicator.setViewPager(pager);
-                        indicator.setPadding(5, 5, 10, 5);
-                        pager.startAutoScroll();
+                    array = new JSONArray(json);
+                    List<String> mMarqueeInfo = new ArrayList<>(array.length());
+                    mMarqueeInfo.add("欢迎使用六合运势!!");
+                    for (int i = 0; i < array.length(); i++) {
+                        mMarqueeInfo.add(array.getString(i));
                     }
+                    mMarqueeView.startWithList(mMarqueeInfo);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -471,70 +522,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                Log.e("onFailure", "onFailure: " + responseBody);
             }
         });
     }
 
+
     @Override
     public void onPause() {
         super.onPause();
-//        pager.stopAutoScroll();
         tvResultBQ.destroy();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        pager.stopAutoScroll();
         tvResultBQ.destroy();
     }
 
-    //轮播图适配器
-    public class GalleryPagerAdapter extends PagerAdapter {
-
+    private class MarqueeListener implements MarqueeView.OnItemClickListener {
         @Override
-        public int getCount() {
-            return bannerList.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, final int position) {
-            final BannerUrl bannerData = bannerList.get(position);
-            ImageView item = new ImageView(getContext());
-            Glide.with(getContext())
-                    .load(bannerData.getTitlepic())
-                    .asGif()
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .into(item);
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(-1, -1);
-            item.setLayoutParams(params);
-            item.setScaleType(ImageView.ScaleType.FIT_XY);
-            container.addView(item);
-
-            item.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (bannerData.getTitlepic() != null && !bannerData.getTitlepic().equals("")) {
-                        Uri webViewUri = Uri.parse(bannerData.getTitle());
-                        startActivity(new Intent(Intent.ACTION_VIEW, webViewUri));
-                    } else {
-                        Toast.makeText(getContext(), "sdasda", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-            return item;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup collection, int position, Object view) {
-            collection.removeView((View) view);
+        public void onItemClick(int position, TextView textView) {
+            Uri uri = Uri.parse("http://www.6happ.com");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         }
     }
-
 }

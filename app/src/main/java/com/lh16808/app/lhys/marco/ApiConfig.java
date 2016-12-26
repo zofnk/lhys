@@ -121,11 +121,12 @@ public class ApiConfig {
     public static final String XmlKJBM = "kjbm.xml";
     /**
      * ad
-     * banner廣告
+     * 六合运势轮播
      */
-    public static final String AD_BANNER = "appad/lhdsad1/index.json";
-    // 主页轮播：
-    public static String AD_XB = "appad/lhds_xb/index.json";
+    public static final String AD_BANNER = "appad/6hysad/index.json";
+
+    // 六合运势寻宝
+    public static String AD_XB = "appad/6hys_xb/index.json";
     /**
      * ad
      * 六合寻宝通栏:
@@ -141,6 +142,13 @@ public class ApiConfig {
      * 意见反馈
      */
     public static final String FeedBackURL = "e/enews/index.php";
+
+    /**
+     * wap
+     * 公告信息
+     */
+    public static final String GGXXURL = "json/gmsg.json";
+
     /**
      * wap
      */
@@ -230,7 +238,7 @@ public class ApiConfig {
      * wap
      * 检查更新
      */
-    public static String UPGRUDE = "e/extend/json/sz.php?enews=6hds";
+    public static String UPGRUDE = "e/extend/json/sz.php?enews=6hys";
 
     /**
      * 彩票专区：
@@ -291,4 +299,31 @@ public class ApiConfig {
 
     // 足球比分
     public static String ZQBF = "bifen.php";
+
+    /**
+     * 广告轮播：
+     */
+    //主页轮播：
+    public static String AD_HOME = "appad/indexad/index.json";
+    // 视频开奖轮播:
+    public static String AD_SPKJ = "appad/spkjad/index.json";
+    // 六合大全轮播:
+    public static String AD_LHDQ = "appad/lhdqad/index.json";
+    // 彩票专区轮播:
+    public static String AD_CPZQ = "appad/cpzqad/index.json";
+    // 足球比分轮播:
+    public static String AD_ZQBF = "appad/zqbfad/index.json";
+    // 六合寻宝通栏:
+    public static String AD_LHXB = "appad/lhxb/index.json";
+    // 百家乐轮播:
+    public static String AD_BJL = "appad/bjlad/index.json";
+    // 娱乐城通栏:
+    public static String AD_YLC = "appad/ylcbanner/index.json";
+    // 皇冠网通栏:
+    public static String AD_HGW = "appad/hgwbanner/index.json";
+    // 时时彩通栏:
+    public static String AD_SSCTL = "appad/sscbanner/index.json";
+    public static String[] AD={AD_HOME,AD_SPKJ,AD_LHDQ,AD_CPZQ,AD_ZQBF,AD_LHXB,AD_BJL,AD_YLC,AD_HGW,AD_SSCTL};
+
+
 }

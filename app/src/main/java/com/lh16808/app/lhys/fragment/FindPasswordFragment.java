@@ -5,10 +5,13 @@ import android.content.Context;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,45 +38,9 @@ public class FindPasswordFragment extends BaseFragment implements View.OnClickLi
     public static FindPasswordFragment newInstance() {
 
         Bundle args = new Bundle();
-
         FindPasswordFragment fragment = new FindPasswordFragment();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    protected int setLayout() {
-        return R.layout.fragment_find_password;
-    }
-
-    @Override
-    protected void init() {
-        ImageView layoutBack = (ImageView) mRootview.findViewById(R.id.ivBack);
-        layoutBack.setOnClickListener(this);
-
-
-        etPassword = (EditText) mRootview.findViewById(R.id.et_password);
-        etPhoneOrEmail = (EditText) mRootview.findViewById(R.id.et_phone);
-        etName = (EditText) mRootview.findViewById(R.id.et_name);
-
-
-//        tvArea = (TextView) mRootview.findViewById(R.id.tv_area);
-//        tvArea.setOnClickListener(this);
-
-
-        ivEye = (ImageView) mRootview.findViewById(R.id.iv_eye);
-        ivEye.setOnClickListener(this);
-
-        Button btnCommit = (Button) mRootview.findViewById(R.id.btn_commit);
-        btnCommit.setOnClickListener(this);
-
-        mRootview.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                hideSoftInput();
-                return false;
-            }
-        });
     }
 
     private void hideSoftInput() {
@@ -85,10 +52,6 @@ public class FindPasswordFragment extends BaseFragment implements View.OnClickLi
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    @Override
-    protected void load() {
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -120,6 +83,48 @@ public class FindPasswordFragment extends BaseFragment implements View.OnClickLi
     }
 
     private void resetPassword(String area, String phone, String idName, String password) {
+
+    }
+
+    @Override
+    protected void initVariables() {
+
+    }
+
+    @Override
+    protected View initViews(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View mRootview = inflater.inflate(R.layout.fragment_find_password, container);
+        ImageView layoutBack = (ImageView) mRootview.findViewById(R.id.ivBack);
+        layoutBack.setOnClickListener(this);
+
+
+        etPassword = (EditText) mRootview.findViewById(R.id.et_password);
+        etPhoneOrEmail = (EditText) mRootview.findViewById(R.id.et_phone);
+        etName = (EditText) mRootview.findViewById(R.id.et_name);
+
+
+//        tvArea = (TextView) mRootview.findViewById(R.id.tv_area);
+//        tvArea.setOnClickListener(this);
+
+
+        ivEye = (ImageView) mRootview.findViewById(R.id.iv_eye);
+        ivEye.setOnClickListener(this);
+
+        Button btnCommit = (Button) mRootview.findViewById(R.id.btn_commit);
+        btnCommit.setOnClickListener(this);
+
+        mRootview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideSoftInput();
+                return false;
+            }
+        });
+        return mRootview;
+    }
+
+    @Override
+    public void loadData() {
 
     }
 //    private PopupWindow expressPop;

@@ -285,9 +285,9 @@ public class DrawingHelper {
         mTouchToCornerDis = (float) Math.hypot((mTouch.x - mCornerX),
                 (mTouch.y - mCornerY));
 
-        mBezierEnd1 = Util.getCross(mTouch, mBezierControl1, mBezierStart1,
+        mBezierEnd1 = PageUtil.getCross(mTouch, mBezierControl1, mBezierStart1,
                 mBezierStart2);
-        mBezierEnd2 = Util.getCross(mTouch, mBezierControl2, mBezierStart1,
+        mBezierEnd2 = PageUtil.getCross(mTouch, mBezierControl2, mBezierStart1,
                 mBezierStart2);
         mBeziervertex1.x = (mBezierStart1.x + 2 * mBezierControl1.x + mBezierEnd1.x) / 4;
         mBeziervertex1.y = (2 * mBezierControl1.y + mBezierStart1.y + mBezierEnd1.y) / 4;

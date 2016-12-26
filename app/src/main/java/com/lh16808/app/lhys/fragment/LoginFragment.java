@@ -2,12 +2,15 @@ package com.lh16808.app.lhys.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,95 +68,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         return fragment;
     }
 
-    @Override
-    protected int setLayout() {
-        return R.layout.fragment_login;
-    }
-
-    @Override
-    protected void init() {
-        mActivity = getActivity();
-        etUserId = (EditText) mRootview.findViewById(R.id.et_uerid);
-        etPassword = (EditText) mRootview.findViewById(R.id.et_password);
-        ivLogo = (ImageView) mRootview.findViewById(R.id.iv_logo);
-        TextView tvRegister = (TextView) mRootview.findViewById(R.id.tv_register);
-        tvRegister.setOnClickListener(this);
-        TextView tvFindPassword = (TextView) mRootview.findViewById(R.id.tv_find_password);
-        tvFindPassword.setOnClickListener(this);
-        Button btnLogin = (Button) mRootview.findViewById(R.id.btn_login);
-        btnLogin.setOnTouchListener(new OnTouchAnim());
-        btnLogin.setOnClickListener(this);
-
-        vInput = mRootview.findViewById(R.id.layout_input);
-
-        etUserId.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    if (isTopping) {
-                        return;
-                    }
-                    MyUtils.upToOutofWindow(ivLogo);
-                    MyUtils.upToWindowTop(vInput, ivLogo);
-                    isTopping = true;
-                } else {
-                    if (!etPassword.isFocused()) {
-                        MyUtils.backToOriginal(ivLogo);
-                        MyUtils.backToOriginal(vInput);
-                        isTopping = false;
-                        hideSoftInput();
-                    }
-                }
-                setClearImage();
-            }
-        });
-
-        etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    if (isTopping) {
-                        return;
-                    }
-                    MyUtils.upToOutofWindow(ivLogo);
-                    MyUtils.upToWindowTop(vInput, ivLogo);
-                    isTopping = true;
-                } else {
-                    if (!etUserId.isFocused()) {
-                        MyUtils.backToOriginal(ivLogo);
-                        MyUtils.backToOriginal(vInput);
-                        isTopping = false;
-                        hideSoftInput();
-                    }
-                }
-                setClearImage();
-            }
-        });
-
-        mRootview.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.requestFocus();
-                return false;
-            }
-        });
-
-        ivClearUserId = (ImageView) mRootview.findViewById(R.id.iv_clear_userid);
-        ivEye = (ImageView) mRootview.findViewById(R.id.iv_eye);
-
-        ivClearUserId.setOnClickListener(this);
-        ivEye.setOnClickListener(this);
-        String userName = SharedPreUtils.getString("userName");
-        String userPwd = SharedPreUtils.getString("userPwd");
-        if (!TextUtils.isEmpty(userPwd)) {
-            login(userName, userPwd);
-        }
-    }
-
-    @Override
-    protected void load() {
-
-    }
 
     private void setClearImage() {
         ivClearUserId.setVisibility(isTopping ? View.VISIBLE : View.INVISIBLE);
@@ -281,5 +195,97 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected void initVariables() {
+
+    }
+
+    @Override
+    protected View initViews(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View mRootview = inflater.inflate(R.layout.fragment_login, container);
+        mActivity = getActivity();
+        etUserId = (EditText) mRootview.findViewById(R.id.et_uerid);
+        etPassword = (EditText) mRootview.findViewById(R.id.et_password);
+        ivLogo = (ImageView) mRootview.findViewById(R.id.iv_logo);
+        TextView tvRegister = (TextView) mRootview.findViewById(R.id.tv_register);
+        tvRegister.setOnClickListener(this);
+        TextView tvFindPassword = (TextView) mRootview.findViewById(R.id.tv_find_password);
+        tvFindPassword.setOnClickListener(this);
+        Button btnLogin = (Button) mRootview.findViewById(R.id.btn_login);
+        btnLogin.setOnTouchListener(new OnTouchAnim());
+        btnLogin.setOnClickListener(this);
+
+        vInput = mRootview.findViewById(R.id.layout_input);
+
+        etUserId.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    if (isTopping) {
+                        return;
+                    }
+                    MyUtils.upToOutofWindow(ivLogo);
+                    MyUtils.upToWindowTop(vInput, ivLogo);
+                    isTopping = true;
+                } else {
+                    if (!etPassword.isFocused()) {
+                        MyUtils.backToOriginal(ivLogo);
+                        MyUtils.backToOriginal(vInput);
+                        isTopping = false;
+                        hideSoftInput();
+                    }
+                }
+                setClearImage();
+            }
+        });
+
+        etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    if (isTopping) {
+                        return;
+                    }
+                    MyUtils.upToOutofWindow(ivLogo);
+                    MyUtils.upToWindowTop(vInput, ivLogo);
+                    isTopping = true;
+                } else {
+                    if (!etUserId.isFocused()) {
+                        MyUtils.backToOriginal(ivLogo);
+                        MyUtils.backToOriginal(vInput);
+                        isTopping = false;
+                        hideSoftInput();
+                    }
+                }
+                setClearImage();
+            }
+        });
+
+        mRootview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.requestFocus();
+                return false;
+            }
+        });
+
+        ivClearUserId = (ImageView) mRootview.findViewById(R.id.iv_clear_userid);
+        ivEye = (ImageView) mRootview.findViewById(R.id.iv_eye);
+
+        ivClearUserId.setOnClickListener(this);
+        ivEye.setOnClickListener(this);
+        String userName = SharedPreUtils.getString("userName");
+        String userPwd = SharedPreUtils.getString("userPwd");
+        if (!TextUtils.isEmpty(userPwd)) {
+            login(userName, userPwd);
+        }
+        return view;
+    }
+
+    @Override
+    public void loadData() {
+
     }
 }

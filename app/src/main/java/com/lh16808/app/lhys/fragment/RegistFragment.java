@@ -3,11 +3,14 @@ package com.lh16808.app.lhys.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,47 +62,6 @@ public class RegistFragment extends BaseFragment implements View.OnClickListener
     private EditText etPhone;
     private EditText etEmail;
     private ImageView ivEye;
-
-    @Override
-    protected int setLayout() {
-        return R.layout.frag_regist;
-    }
-
-    @Override
-    protected void init() {
-        mRootview.findViewById(R.id.rltyBack).setOnClickListener(this);
-
-        TextView tvToProtocol = (TextView) mRootview.findViewById(R.id.tv_to_protocol);
-        tvToProtocol.setOnClickListener(this);
-
-        etEmail = (EditText) mRootview.findViewById(R.id.et_email);
-        etPhone = (EditText) mRootview.findViewById(R.id.et_phone);
-        etName = (EditText) mRootview.findViewById(R.id.et_name);
-        etPassword = (EditText) mRootview.findViewById(R.id.et_password);
-
-        Button btnRegister = (Button) mRootview.findViewById(R.id.btn_register);
-        btnRegister.setOnTouchListener(new OnTouchAnim());
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = etEmail.getText().toString();
-                String phone = etPhone.getText().toString();
-                String idCode = etName.getText().toString();
-                String password = etPassword.getText().toString();
-                RegistFragment.this.register(email, phone, idCode, password);
-            }
-        });
-
-        mRootview.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                hideSoftInput();
-                return false;
-            }
-        });
-        ivEye = (ImageView) mRootview.findViewById(R.id.iv_eye);
-        ivEye.setOnClickListener(this);
-    }
 
     private void register(String email, String phone, String idCode, String password) {
         boolean setVali = setVali(email, phone, idCode, password);
@@ -184,11 +146,6 @@ public class RegistFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    protected void load() {
-
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rltyBack:
@@ -207,4 +164,51 @@ public class RegistFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
+    @Override
+    protected void initVariables() {
+
+    }
+
+    @Override
+    protected View initViews(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View mRootview = inflater.inflate(R.layout.frag_regist, container);
+        mRootview.findViewById(R.id.rltyBack).setOnClickListener(this);
+
+        TextView tvToProtocol = (TextView) mRootview.findViewById(R.id.tv_to_protocol);
+        tvToProtocol.setOnClickListener(this);
+
+        etEmail = (EditText) mRootview.findViewById(R.id.et_email);
+        etPhone = (EditText) mRootview.findViewById(R.id.et_phone);
+        etName = (EditText) mRootview.findViewById(R.id.et_name);
+        etPassword = (EditText) mRootview.findViewById(R.id.et_password);
+
+        Button btnRegister = (Button) mRootview.findViewById(R.id.btn_register);
+        btnRegister.setOnTouchListener(new OnTouchAnim());
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = etEmail.getText().toString();
+                String phone = etPhone.getText().toString();
+                String idCode = etName.getText().toString();
+                String password = etPassword.getText().toString();
+                RegistFragment.this.register(email, phone, idCode, password);
+            }
+        });
+
+        mRootview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideSoftInput();
+                return false;
+            }
+        });
+        ivEye = (ImageView) mRootview.findViewById(R.id.iv_eye);
+        ivEye.setOnClickListener(this);
+        return mRootview;
+    }
+
+    @Override
+    public void loadData() {
+
+    }
 }

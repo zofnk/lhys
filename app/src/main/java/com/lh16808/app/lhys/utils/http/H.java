@@ -2,6 +2,7 @@ package com.lh16808.app.lhys.utils.http;
 
 import com.lh16808.app.lhys.marco.ApiConfig;
 import com.lh16808.app.lhys.marco.Constants;
+import com.lh16808.app.lhys.utils.NetUtil;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -120,12 +121,22 @@ public class H {
     public static void UPGRUADE(AsyncHttpResponseHandler a) {
         AsyncHttpClientUtils.getInstance().get(ApiConfig.getBaseUrl(ApiConfig.UPGRUDE), a);
     }
-    public static void FeedBackURL(RequestParams params, AsyncHttpResponseHandler a){
+
+    public static void FeedBackURL(RequestParams params, AsyncHttpResponseHandler a) {
         AsyncHttpClientUtils.getInstance().post(ApiConfig.getBaseUrl(ApiConfig.FeedBackURL), params, a);
+    }
+
+    public static void GGXXUrl(RequestParams params, AsyncHttpResponseHandler a) {
+        AsyncHttpClientUtils.getInstance().get(ApiConfig.getBaseUrl(ApiConfig.GGXXURL), a);
     }
 
     public static void APK_DOWDLAN(AsyncHttpResponseHandler a) {
         AsyncHttpClientUtils.getInstance().get(ApiConfig.getBaseUrl(ApiConfig.APK_DOWDLAN), a);
+    }
+
+    public static void AD(int type, NetUtil.LoadMainADCallBack mCallBack) {
+        String baseUrlAD = ApiConfig.getBaseUrlAD(ApiConfig.AD[type]);
+        NetUtil.loadMainAd(baseUrlAD, mCallBack);
     }
 
 }

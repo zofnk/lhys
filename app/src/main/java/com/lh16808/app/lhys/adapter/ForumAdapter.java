@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.lh16808.app.lhys.R;
 import com.lh16808.app.lhys.model.ForumModel;
 import com.lh16808.app.lhys.utils.ImageLoader;
@@ -68,7 +69,11 @@ public class ForumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         holderx.tv_forum_time.setText(forumModel.getNewstime());
         holderx.tv_forum_sum.setText("已有" + forumModel.getOncliclk() + "人阅读");
         holderx.tv_forum_title.setText(forumModel.getTitle());
-        ImageLoader.LoaderNetHead(mContext, forumModel.getUserpic(), holderx.img_forum_ico);
+//        ImageLoader.LoaderNetHead(mContext, forumModel.getUserpic(), holderx.img_forum_ico);
+        Glide.with(mContext)
+                .load(forumModel.getUserpic())
+                .into(holderx.img_forum_ico)
+                .onStart();
         holderx.tv_forum_fenShu.setText(forumModel.getUserfen());
         holderx.tv_forum_dengJi.setText(forumModel.getGroupname());
         holderx.tv_forum_huiFu.setText(String.valueOf(forumModel.getRnum()));

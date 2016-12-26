@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -27,11 +28,13 @@ import com.lh16808.app.lhys.fragment.HomeFragment;
 import com.lh16808.app.lhys.fragment.ResultFragment;
 import com.lh16808.app.lhys.service.LottoService;
 import com.lh16808.app.lhys.utils.AppLog;
+import com.lh16808.app.lhys.utils.dataUtils.ToastUtil;
 import com.lh16808.app.lhys.widget.blurview.BlurView;
 import com.lh16808.app.lhys.widget.blurview.RenderScriptBlur;
 import com.mxn.soul.flowingdrawer_core.FlowingView;
 import com.mxn.soul.flowingdrawer_core.LeftDrawerLayout;
 
+import static android.R.attr.name;
 import static com.lh16808.app.lhys.R.id.blurView;
 import static com.lh16808.app.lhys.R.id.tabLayout;
 import static com.lh16808.app.lhys.R.id.viewPager;
@@ -55,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
     public static MainActivity getInstance() {
         return mContext;
+    }
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, MainActivity.class);
+        context.startActivity(starter);
     }
 
     @Override
@@ -128,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
     public void setLoadzt(LoadZT zt) {
         this.zt = zt;
     }
-
 
     @Override
     protected void onStop() {
@@ -271,12 +278,26 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+    private boolean isF;
+
     @Override
     public void onBackPressed() {
         if (mLeftDrawerLayout.isShownMenu()) {
             mLeftDrawerLayout.closeDrawer();
         } else {
-            super.onBackPressed();
+            //如果侧滑菜单关闭则双击退出
+            if (isF) {
+                super.onBackPressed();
+            } else {
+                isF = true;
+                ToastUtil.toastShow(this, "再按一次退出");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        isF = false;
+                    }
+                }, 2000);
+            }
         }
     }
 }

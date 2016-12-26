@@ -41,10 +41,6 @@
     <string name="base_url_zl">http://ziliao.jizhou56.com:8090/</string>
     <string name="base_url_kj">http://app.jizhou56.com:8090/</string>
 
-    <string name="lhl">老黃歷</string>
-    <string name="lhl_sm">六合每期吉數黃歷</string>
-    <string name="lhl_xzrq">選擇日期</string>
-
     <!-- 分享dialog -->
     <string name="share_app_name_weixin">微信</string>
     <string name="share_aapp_name_pyq">朋友圈</string>
@@ -53,6 +49,20 @@
     <string name="invite_tip">邀請好友</string>
     <string name="invite_actionbar_title">邀請</string>
     <string name="invite_two">還可以邀請好友掃描下圖二維碼,直接安裝六合大师哦~(点击图片，保存二维码到本地！)</string>
+
+    <!--老黃歷-->
+    <string name="lhl">老黃歷</string>
+    <string name="lhl_sm">六合每期吉數黃歷</string>
+    <string name="lhl_xzrq">選擇日期</string>
+    <!--查詢助手-->
+    <string name="lhc_chaxunzhushou">查詢助手</string>
+    <string name="lhc_chaxunzhushou_sm">六合資訊集合</string>
+    <string name="lhc_chaxun_tjcx">條件查詢</string>
+    <string name="lhc_chaxun_xztj">選擇條件</string>
+    <string name="lhc_chaxun_lrhm">冷熱號碼查詢</string>
+    <string name="lhc_lhcs">六合常識</string>
+    <!--走勢分析-->
+    <string name="lhc_zsfx">走勢分析</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

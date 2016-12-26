@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.view.View;
 
-public class Util {
+public class PageUtil {
 	public static Bitmap takeShort(View v, Bitmap viewShort) {
 		v.setDrawingCacheEnabled(true);
 		v.buildDrawingCache();

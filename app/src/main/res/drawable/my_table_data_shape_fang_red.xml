@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<item-->
+        <!--android:bottom="0dp"-->
+        <!--android:left="0dp"-->
+        <!--android:right="0dp"-->
+        <!--android:top="0dp">-->
+        <!--<shape>-->
+            <!--<solid android:color="#f7f7cd"/>-->
+
+            <!--<stroke-->
+                <!--android:width="0.01dp"-->
+                <!--android:color="#CBCBCB"/>-->
+            <!--&lt;!&ndash; 间隔 &ndash;&gt;-->
+
+            <!--<padding-->
+                <!--android:bottom="3dp"-->
+                <!--android:left="2dp"-->
+                <!--android:right="2dp"-->
+                <!--android:top="3dp"/> &lt;!&ndash; 各方向的间隔 &ndash;&gt;-->
+        <!--</shape>-->
+    <!--</item>-->
+    <item
+        android:bottom="0dp"
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp">
+        <shape>
+            <!-- 填充 -->
+            <solid
+                android:color="#ff0000"/><!-- 填充的颜色 -->
+            <!-- 大小 -->
+            <size
+                android:width="20dp"
+                android:height="20dp"/><!-- 宽度和高度 -->
+        </shape>
+    </item>
+</layer-list>

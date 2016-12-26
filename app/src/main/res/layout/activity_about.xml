@@ -9,11 +9,12 @@
     <include layout="@layout/tool_bar"/>
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/imgLogo"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:src="@android:color/darker_gray"/>
+        android:src="@mipmap/ic_launcher"/>
 
     <TextView
         android:layout_width="match_parent"

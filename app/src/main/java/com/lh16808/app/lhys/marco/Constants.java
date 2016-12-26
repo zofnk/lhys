@@ -22,7 +22,7 @@ public interface Constants {
     int[] redbo = {1, 2, 7, 8, 12, 13, 18, 19, 23, 24, 29, 30, 34, 35, 40, 45, 46};
     int[] bulebo = {3, 4, 9, 10, 14, 15, 20, 25, 26, 31, 36, 37, 41, 42, 47, 48};
     int[] greenbo = {5, 6, 11, 16, 17, 21, 22, 27, 28, 32, 33, 38, 39, 43, 44, 49};
-    int[] rbg = {R.drawable.ball_red_tool_lover, R.drawable.ball_blue_tool_lover, R.drawable.ball_green_tool_lover};
+    int[] rbg = {R.drawable.icon_red_ball, R.drawable.icon_blue_ball, R.drawable.icon_green_ball};
     int[] musicsx = {R.raw.shu, R.raw.niu, R.raw.hu, R.raw.tu, R.raw._long, R.raw.she, R.raw.ma, R.raw.yang, R.raw.hou,
             R.raw.ji, R.raw.gou, R.raw.zhu};
     String[] sxstr = new String[]{"鼠", "牛", "虎", "兔", "龍", "蛇", "馬", "羊", "猴", "雞", "狗", "豬"};
@@ -59,7 +59,7 @@ public interface Constants {
     public static final String LOTTERY_TIME = "lottery_time";
 
     // 主页轮播：
-    String AD_HOME = "http://ad.jizhou56.com:8090/appad/indexad/index.json";
+    String AD_HOME = "http://ad.jizhou56.com:8090/appad/6hysad/index.json";
     //能翻牌
     public static final String CAN_TURN_CARDS = "can_turn_cards";
     //翻牌的結果
@@ -113,5 +113,21 @@ public interface Constants {
             " </h1>\n" +
             "</body>\n" +
             "</html>";
+
+    //User
+    public static String SHARE_USER_ID = "share_user_id";// String 用户id
+    public static String SHARE_PWD = "share_pwd";// String 密码
+    public static final String GB = "com.example.BROADCAST";
+    public static final String GB_KEY = "gb_key";
+    /**
+     * 初始化数据
+     */
+    public static final String SHARETEXT = "sharetext";
+    public static final String SHARELINK = "sharelink";
+    public static final String VO = "vo";
+    public static final String QRURL = "qrurl";
+    public static final String FEATURE = "feature";
+    public static final String FILELEN = "filelen";
+    public static final String IOSON = "ioson";
 
 }

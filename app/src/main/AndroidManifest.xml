@@ -2,13 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.lh16808.app.lhys">
 
-    <!--**********友盟开始-->
-    <!--友盟统计-->
+    <!-- **********友盟开始 -->
+    <!-- 友盟统计 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <!--友盟分享-->
+    <!-- 友盟分享 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -25,12 +25,12 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
-    <!--**********友盟结束-->
-    <!--*******极光推送开始-->
+    <!-- **********友盟结束 -->
+    <!-- *******极光推送开始 -->
     <permission
         android:name="${applicationId}.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature"/>
-    <!-- Required  一些系统要求的权限，如访问网络等-->
+    <!-- Required  一些系统要求的权限，如访问网络等 -->
     <uses-permission android:name="${applicationId}.permission.JPUSH_MESSAGE"/>
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -50,8 +50,8 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
-    <!--*******极光推送结束-->
 
+    <!-- *******极光推送结束 -->
     <application
         android:name=".base.BaseAPP"
         android:allowBackup="true"
@@ -60,14 +60,37 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:name=".activity.SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.ChaxunZhushouActivity"
+            android:screenOrientation="portrait"/>
+        <!--冷热查询-->
+        <activity
+            android:name=".activity.LengReActivity"
+            android:screenOrientation="portrait"/>
+        <!--条件查询-->
+        <activity
+            android:name=".activity.TiaoJianChaxunActivity"
+            android:screenOrientation="portrait"/>
+        <!--六合常识-->
+        <activity
+            android:name=".activity.ChangshiActivity"
+            android:screenOrientation="portrait"/>
+        <!--#####走势分析start######-->
+        <activity
+            android:name=".activity.ZoushifenxiActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.AboutActivity"
             android:screenOrientation="portrait"/>
@@ -122,9 +145,12 @@
         <activity
             android:name=".activity.ZiliaoActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.ForumDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.FeedbackActivity"
             android:screenOrientation="portrait"/>
 
         <service
@@ -141,17 +167,17 @@
         <activity
             android:name=".activity.CardActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.EditSafeInfoActivity"
+                  android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.ShakeActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.LuckPanActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".laohuangli.LaohuangliActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"/>
@@ -159,25 +185,22 @@
             android:name=".activity.NatureActivity"
             android:screenOrientation="portrait"/>
 
-
-
-
-        <!--********** 友盟配置開始 -->
-        <!-- Umeng友盟-->
+        <!-- ********** 友盟配置開始 -->
+        <!-- Umeng友盟 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="585a4537c62dca34e30011ad"/> <!--UMENG_APPKEY要替换-->
+            android:value="585a4537c62dca34e30011ad"/> <!-- UMENG_APPKEY要替换 -->
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="Other"/>
-        <!--友盟微信分享-->
+        <!-- 友盟微信分享 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <!--友盟QQ精简版分享-->
+        <!-- 友盟QQ精简版分享 -->
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"
             android:launchMode="singleTask"
@@ -187,7 +210,7 @@
 
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <!--1105250483要替换-->
+                <!-- 1105250483要替换 -->
                 <data android:scheme="tencent1105250483"/>
             </intent-filter>
         </activity>
@@ -196,14 +219,15 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <!--友盟分享编辑页-->
+        <!-- 友盟分享编辑页 -->
         <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.UMDefault"/>
-        <!--********** 友盟配置結束 -->
+        <!-- ********** 友盟配置結束 -->
 
-        <!--********** 极光推送开始-->
+
+        <!-- ********** 极光推送开始 -->
         <!-- Rich push 核心功能 since 2.0.6 -->
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
@@ -282,7 +306,6 @@
             android:name="cn.jpush.android.service.AlarmReceiver"
             android:exported="false"/>
 
-
         <!-- User defined. 用户自定义的广播接收器 -->
         <receiver
             android:name=".receiver.MyReceiver"
@@ -290,17 +313,17 @@
             <intent-filter>
 
                 <!-- Required 用户注册SDK的intent -->
-                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.REGISTRATION"/>
                 <!-- Required 用户接收SDK消息的intent -->
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
                 <!-- Required 用户接收SDK通知栏信息的intent -->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
                 <!-- Required 用户打开自定义通知栏的intent -->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
                 <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <action android:name="cn.jpush.android.intent.CONNECTION" />
+                <action android:name="cn.jpush.android.intent.CONNECTION"/>
 
-                <category android:name="com.lh16808.app.lhds" />
+                <category android:name="com.lh16808.app.lhds"/>
             </intent-filter>
         </receiver>
         <!-- Required  . Enable it you can get statistics data with channel -->
@@ -309,10 +332,8 @@
             android:value="developer-default"/>
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="4ef92c260cc33fcc22fb643e"/> <!--JPUSH_APPKEY要替换-->
-        <!--*********极光推送结束-->
-
-
+            android:value="4ef92c260cc33fcc22fb643e"/> <!-- JPUSH_APPKEY要替换 -->
+        <!-- *********极光推送结束 -->
     </application>
 
 </manifest>

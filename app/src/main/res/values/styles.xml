@@ -122,6 +122,35 @@
         <attr name="blurOverlayColor" format="color"/>
     </declare-styleable>
 
+    <!-- PopupWindow从底部出入动画 -->
+    <style name="my_popwin_anim_style">
+        <item name="android:windowEnterAnimation">@anim/my_menushow</item>
+        <item name="android:windowExitAnimation">@anim/my_menuhide</item>
+    </style>
+    <!--正在加载提示-->
+    <style name="my_pro_dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 模糊 -->
+    </style>
+    <!--Radio-->
+    <style name="lhc_RadioStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@color/lhc_text_color</item>
+        <item name="android:background">@drawable/lhc_btn_radio</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <!-- 老黄历日期选择 -->
     <style name="lhl_dialog">
         <item name="android:windowFrame">@null</item><!--边框-->
         <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
@@ -130,4 +159,5 @@
         <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
         <item name="android:backgroundDimEnabled">true</item><!--模糊-->
     </style>
+
 </resources>

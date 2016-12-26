@@ -55,6 +55,7 @@ import java.util.Date;
 import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.lh16808.app.lhys.R.id.tv_share;
 import static java.security.AccessController.getContext;
 
 public class PeopleDataActivity extends BaseActivity implements View.OnClickListener {
@@ -79,13 +80,21 @@ public class PeopleDataActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initVariables() {
-
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_people_data);
-        findViewById(R.id.tv_share).setVisibility(View.GONE);
+        setTvTitle("个人资料");
+        TextView tv_share = (TextView) findViewById(R.id.tv_share);
+        tv_share.setVisibility(View.GONE);
+        tv_share.setText("忘记密码");
+        tv_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditSafeInfoActivity.start(PeopleDataActivity.this);
+            }
+        });
         user = User.getUser();
         initUI();
     }

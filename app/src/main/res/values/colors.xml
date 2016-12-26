@@ -9,6 +9,12 @@
     <color name="black">#000000</color><!--黑色 -->
     <color name="gray_8f">#8f8f8f</color><!--灰色8f -->
 
+    <!-- 单选框 -->
+    <color name="lhc_selected_color">#ffffff</color>
+    <color name="lhc_not_selected_color">#ffb921</color>
+    <color name="lhc_yellow_theme">#f2ad18</color>
+
+
     <color name="style_color_primary">#2d5d82</color>
     <color name="style_color_primary_dark">#21425d</color>
     <color name="style_color_accent">#01bcd5</color>

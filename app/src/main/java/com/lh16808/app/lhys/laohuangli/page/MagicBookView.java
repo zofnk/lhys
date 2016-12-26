@@ -12,7 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.Scroller;
 import android.widget.Toast;
 
-
 import java.util.logging.Logger;
 
 
@@ -280,11 +279,11 @@ public class MagicBookView extends FrameLayout {
 
     private void loadBitmaps() {
         if (DEBUG) Log.d(TAG, "~~~~~~~~~~~~~~ loadBitmaps START ~~~~~~~~~~~~~~");
-        mPrePageBitmap = Util.takeShort(mPrePageContainter, mPrePageBitmap);
+        mPrePageBitmap = PageUtil.takeShort(mPrePageContainter, mPrePageBitmap);
         if (DEBUG) Log.d(TAG, "mPrePageBitmap.page =" + mPrePageContainter.getCurPageInBook());
-        mCurPageBitmap = Util.takeShort(mCurPageContainter, mCurPageBitmap);
+        mCurPageBitmap = PageUtil.takeShort(mCurPageContainter, mCurPageBitmap);
         if (DEBUG) Log.d(TAG, "mCurPageBitmap.page =" + mCurPageContainter.getCurPageInBook());
-        mNextPageBitmap = Util.takeShort(mNextPageContainter, mNextPageBitmap);
+        mNextPageBitmap = PageUtil.takeShort(mNextPageContainter, mNextPageBitmap);
         if (DEBUG) Log.d(TAG, "mNextPageBitmap.page =" + mNextPageContainter.getCurPageInBook());
         if (DEBUG) Log.d(TAG, "~~~~~~~~~~~~~~ loadBitmaps END ~~~~~~~~~~~~~~");
     }

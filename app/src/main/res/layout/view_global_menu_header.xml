@@ -28,9 +28,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:gravity="left|center"
+                android:gravity="center|left"
                 android:lines="1"
-                android:text="请点击登录"
+                android:text="点击头像登录"
                 android:textColor="#2d5d82"
                 android:textSize="16dp"
                 android:textStyle="bold"/>

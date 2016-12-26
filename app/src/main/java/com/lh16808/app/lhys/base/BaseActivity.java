@@ -6,7 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
+import com.lh16808.app.lhys.R;
 import com.lh16808.app.lhys.other.MyDialog;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
@@ -74,6 +76,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         MobclickAgent.onPause(this);
     }
 
+    protected void setTvTitle(String title) {
+        TextView tvTitle = (TextView) findViewById(R.id.tool_bar_title);
+        if (tvTitle != null)
+            tvTitle.setText(title);
+    }
 
     public void onClickBack(View view) {
         finish();

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_edit_safe_info"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_bg_white_8"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_forget_oldpassword"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawableLeft="@drawable/pwd_lock"
+                android:drawablePadding="10dp"
+                android:hint="请输入原密码"
+                android:inputType="textPassword"
+                android:maxLength="20"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:textColor="#3A3636"
+                android:textColorHint="#C8C8C8"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#E8E8E8" />
+
+        <EditText
+            android:id="@+id/et_forget_pwd_new_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/pwd_lock"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="請設置密碼(6\u002d16個字符)"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textColor="#3A3636"
+            android:textColorHint="#C8C8C8"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#E8E8E8" />
+
+        <EditText
+            android:id="@+id/et_forget_pwd_confirm_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/pwd_lock"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="再次確認密碼"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textColor="#3A3636"
+            android:textColorHint="#C8C8C8"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#E8E8E8" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_forget_pwd_confirm"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/orgin_btn_bg"
+        android:text="完成"
+        android:textColor="@color/white" />
+</LinearLayout>

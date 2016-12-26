@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical">
+
+    <include layout="@layout/tool_bar"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_zoushi_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_zoushi_banner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+        </android.support.v4.view.ViewPager>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+            <com.astuetz.PagerSlidingTabStrip
+                android:id="@+id/tabs_1"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                app:pstsDividerColor="#00000000"
+                app:pstsIndicatorColor="#ffff00"
+                app:pstsIndicatorHeight="3dp"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:visibility="gone"
+            app:cardElevation="5dp">
+
+            <Button
+                android:id="@+id/btn_reload"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/lhc_btn_shape_white"
+                android:text="重新加載..."/>
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+</LinearLayout>

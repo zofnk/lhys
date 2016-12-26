@@ -3,6 +3,7 @@ package com.lh16808.app.lhys.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -13,11 +14,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.lh16808.app.lhys.R;
 import com.lh16808.app.lhys.model.BannerData;
+import com.lh16808.app.lhys.model.BannerModel;
 import com.lh16808.app.lhys.model.BannerUrl;
 import com.lh16808.app.lhys.utils.http.AsyncHttpClientUtils;
 import com.lh16808.app.lhys.utils.http.ConnectionUtils;
+import com.lh16808.app.lhys.utils.http.H;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -32,121 +36,96 @@ import cz.msebera.android.httpclient.Header;
  * Created by Administrator on 2016/9/20.
  */
 public class ShowBanner {
-    private ArrayList<BannerUrl> listimg = new ArrayList<>();
-    private ArrayList<ImageView> advertImgs = new ArrayList<>();
+    private ArrayList<BannerModel> listimg = new ArrayList<>();
     private ArrayList<View> dots = new ArrayList<View>(); // 图片标题正文的那些点
     private Context context;
-
-    private View vp_fragment__relat_banner;
-    private ViewPager vp_banner;
-    private LinearLayout ll_dot;
-    private int bannerMax = 10000000;
-    private String Url;
+    private View mRL;
+    private ViewPager mViewPager;
+    private LinearLayout mPointContainer;
+    private int bannerMax = 100000;
+    private int type;
     public boolean isRemove;
 
-    private ShowBanner() {
-
-    }
-
-    public static ShowBanner getShowBanner() {
-        return new ShowBanner();
+    public ArrayList<BannerModel> getListimg() {
+        return listimg;
     }
 
     public void removeAction() {
         if (listimg.size() > 1) {
-            vp_banner.removeCallbacks(action);
+            handler.removeCallbacksAndMessages(null);
             isRemove = true;
         }
     }
 
     public void runAction() {
         if (listimg.size() > 1 && isRemove) {
-            vp_banner.post(action);
+            handler.sendEmptyMessageDelayed(ROLL_PAGE, TIME);
             isRemove = false;
         }
     }
 
-    /**
-     * 设置轮播自动滑动及速度
-     */
-    private Runnable action = new Runnable() {
-        @Override
-        public void run() {
-            int currentItem = vp_banner.getCurrentItem();
-            vp_banner.setCurrentItem(currentItem + 1, true);
-            vp_banner.postDelayed(action, 3000);
-        }
-    };
-
-    public ShowBanner show(BannerData bannerData) {
-        this.Url = bannerData.getUrl();
-        this.context = bannerData.getContextX();
-        this.vp_fragment__relat_banner = bannerData.getRelativeLayout();
-        this.vp_banner = bannerData.getViewPager();
-        this.ll_dot = bannerData.getLinearLayout();
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) vp_banner.getLayoutParams();
+    public ShowBanner show(Context context, int type, View rl, LinearLayout ll, ViewPager vp) {
+        this.type = type;
+        this.context = context;
+        this.mRL = rl;
+        this.mViewPager = vp;
+        this.mPointContainer = ll;
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mViewPager.getLayoutParams();
         layoutParams.height = ScreenUtils.getScreenWidth(context) * 170 / 410;
-        vp_banner.setLayoutParams(layoutParams);
-        if (ConnectionUtils.isConnect(context)) {
-            getBannerInfo();
-        } else {
-            for (int i = 0; i < 1; i++) {
-                BannerUrl bannerUrl = new BannerUrl();
-                bannerUrl.setTitle("");
-                bannerUrl.setTitlepic("http://www.16808.com/");
-                listimg.add(bannerUrl);
-            }
-            showBannerInfo();
-        }
+        mViewPager.setLayoutParams(layoutParams);
+//        if (ConnectionUtils.isConnect(context)) {
+//            getBannerInfo();
+//        }
         return ShowBanner.this;
     }
 
     /**
      * 获取广告信息
      */
-    private void getBannerInfo() {
-        AsyncHttpClientUtils.getInstance().get(Url, new AsyncHttpResponseHandler() {
+    public void getBannerInfo() {
+        H.AD(type, new NetUtil.LoadMainADCallBack() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String arg0 = new String(responseBody);
-                try {
-                    JSONArray jsonArray = new JSONArray(arg0);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String title = jsonObject.getString("title");
-                        String titlepic = jsonObject.getString("titlepic");
-                        BannerUrl bannerUrl = new BannerUrl();
-                        bannerUrl.setTitle(title);
-                        bannerUrl.setTitlepic(titlepic);
-                        listimg.add(bannerUrl);
-                    }
-                    if (listimg.size() > 0) {
-                        showBannerInfo();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            public void onSuccess(ArrayList<BannerModel> bannerUrl) {
+                listimg.clear();
+                listimg.addAll(bannerUrl);
+                if (listimg.size() > 0) {
+                    showBannerInfo();
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            public void onFailure() {
 
             }
         });
     }
 
     private void showBannerInfo() {
-        if (vp_fragment__relat_banner != null) {
-            if (listimg.size() > 0) {
-                vp_fragment__relat_banner.setVisibility(View.VISIBLE);
-            } else {
-                vp_fragment__relat_banner.setVisibility(View.GONE);
-            }
+        if (mViewPager == null)
+            return;
+        fillPoint();
+        mViewPager.addOnPageChangeListener(new AdvertPageChangeListener(listimg.size(), dots));
+        if (listimg.size() == 2) {
+            listimg.addAll(listimg);
         }
+        if (listimg.size() == 1) {
+            bannerMax = 1;
+        }
+        AdvertPagerAdapter pagerAdapter = new AdvertPagerAdapter(listimg, context);
+        mViewPager.setAdapter(pagerAdapter);
+//        mViewPager.setOnTouchListener(new PagerTouchListener(mViewPager));
+        if (listimg.size() > 1) {
+            handler.sendEmptyMessageDelayed(ROLL_PAGE, TIME);
+            dots.get(0).setBackgroundResource(R.drawable.shape_dot_blue);
+            mViewPager.setCurrentItem(bannerMax / 2);
+        }
+    }
+
+    private void fillPoint() {
         for (int i = 0; i < listimg.size(); i++) {
             //动态的添加点设置每一个点的布局
             View view = new View(context);
-            ll_dot.addView(view);
+            mPointContainer.addView(view);
             view.setBackgroundResource(R.drawable.shape_dot_white);
             LinearLayout.LayoutParams Params = (LinearLayout.LayoutParams) view.getLayoutParams();
             Params.height = 10;//圆点的大小为10约为5dp
@@ -155,58 +134,16 @@ public class ShowBanner {
             view.setLayoutParams(Params);
             dots.add(view);//把所有的圆点添加到dots中
         }
-        vp_banner.addOnPageChangeListener(new AdvertPageChangeListener(listimg.size(), dots));
-        if (listimg.size() == 2) {
-            listimg.addAll(listimg);
-        }
-        for (int i = 0; i < listimg.size(); i++) {
-            ImageView imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            final BannerUrl advertBean = listimg.get(i);
-            if (!TextUtils.isEmpty(advertBean.getTitle())) {
-                UILUtils.displayImage(context ,listimg.get(i).getTitlepic(), imageView);
-            } else {
-                imageView.setImageResource(R.drawable.bg_fx);
-            }
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        // 调用浏览器
-                        Uri webViewUri = Uri.parse(advertBean.getTitle());
-                        Intent intent = new Intent(Intent.ACTION_VIEW, webViewUri);
-                        context.startActivity(intent);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            advertImgs.add(imageView);
-        }
-        if (listimg.size() == 1) {
-            bannerMax = 1;
-        }
-        AdvertPagerAdapter pagerAdapter = new AdvertPagerAdapter(advertImgs, listimg.size());
-        vp_banner.setAdapter(pagerAdapter);
-        vp_banner.setOnTouchListener(new PagerTouchListener(vp_banner));
-        if (listimg.size() > 1) {
-            if (vp_banner != null) {
-                vp_banner.postDelayed(action, 3000);
-                dots.get(0).setBackgroundResource(R.drawable.shape_dot_blue);
-            }
-            vp_banner.setCurrentItem(bannerMax / 2);
-
-        }
     }
 
     class AdvertPagerAdapter extends PagerAdapter {
 
-        private ArrayList<ImageView> mImageList;
-        int size;
+        private ArrayList<BannerModel> list;
+        private Context mContext;
 
-        public AdvertPagerAdapter(ArrayList<ImageView> imageList, int advertBeans) {
-            this.mImageList = imageList;
-            size = advertBeans;
+        public AdvertPagerAdapter(ArrayList<BannerModel> imageList, Context context) {
+            this.list = imageList;
+            mContext = context;
         }
 
         @Override
@@ -218,14 +155,41 @@ public class ShowBanner {
         @Override
         public void destroyItem(ViewGroup container, int position,
                                 Object object) {
+            container.removeView((View) object);
         }
 
         //每次滑动的时候生成的组件
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            ((ViewPager) container).removeView(mImageList.get(position % size));
-            ((ViewPager) container).addView(mImageList.get(position % size));
-            return mImageList.get(position % size);
+            final int index = position % list.size();
+            ImageView imageView = new ImageView(mContext);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            container.addView(imageView);
+
+            Glide.with(mContext)
+                    .load(list.get(index).getTitlepic())
+                    .placeholder(R.mipmap.empty)
+                    .error(R.mipmap.error)
+                    .centerCrop()
+                    .into(imageView);
+            imageView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    try {
+                        // 调用浏览器
+                        String title = list.get(index).getTitle();
+                        if (!TextUtils.isEmpty(title) && title.length() != 1) {
+                            Uri webViewUri = Uri.parse(title);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, webViewUri);
+                            mContext.startActivity(intent);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return imageView;
         }
 
         @Override
@@ -234,6 +198,8 @@ public class ShowBanner {
         }
 
     }
+
+    private boolean isDragging;
 
     class AdvertPageChangeListener implements ViewPager.OnPageChangeListener {
 
@@ -247,17 +213,32 @@ public class ShowBanner {
 
         @Override
         public void onPageSelected(int position) {
-            for (int i = 0; i < mAdvertBeans; i++) {
-                if (position % mAdvertBeans == i) {
-                    mDots.get(i).setBackgroundResource(R.drawable.shape_dot_blue);
-                } else {
-                    mDots.get(i).setBackgroundResource(R.drawable.shape_dot_white);
+            if (mPointContainer != null) {
+                for (int i = 0; i < mAdvertBeans; i++) {
+                    if (position % mAdvertBeans == i) {
+                        mDots.get(i).setBackgroundResource(R.drawable.shape_dot_blue);
+                    } else {
+                        mDots.get(i).setBackgroundResource(R.drawable.shape_dot_white);
+                    }
                 }
             }
         }
 
         @Override
         public void onPageScrollStateChanged(int arg0) {
+            switch (arg0) {
+                case ViewPager.SCROLL_STATE_DRAGGING:
+                    isDragging = true;
+                    break;
+                case ViewPager.SCROLL_STATE_IDLE:
+                    isDragging = false;
+                    break;
+                case ViewPager.SCROLL_STATE_SETTLING:
+                    isDragging = false;
+                    break;
+                default:
+                    break;
+            }
         }
 
         @Override
@@ -266,30 +247,23 @@ public class ShowBanner {
         }
     }
 
-    class PagerTouchListener implements View.OnTouchListener {
+    private static final int ROLL_PAGE = 1;
+    private static final int TIME = 3000;
+    /**
+     * 设置轮播自动滑动及速度
+     */
+    public Handler handler = new Handler() {
 
-        private ViewPager mAdViewPager;
-
-        public PagerTouchListener(ViewPager adViewPager) {
-            mAdViewPager = adViewPager;
-        }
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    mAdViewPager.removeCallbacks(action);
-                    break;
-                case MotionEvent.ACTION_UP:
-                    if (mAdViewPager != null) {
-                        mAdViewPager.removeCallbacks(action);
-                        mAdViewPager.postDelayed(action, 3000);
+        public void handleMessage(android.os.Message msg) {
+            if (msg.what == ROLL_PAGE) {
+                if (mViewPager != null) {
+                    if (!isDragging) {
+                        int currentItem = mViewPager.getCurrentItem();
+                        mViewPager.setCurrentItem(currentItem + 1);
                     }
-                    break;
-                default:
-                    break;
+                    sendEmptyMessageDelayed(ROLL_PAGE, TIME);
+                }
             }
-            return false;
         }
-    }
+    };
 }

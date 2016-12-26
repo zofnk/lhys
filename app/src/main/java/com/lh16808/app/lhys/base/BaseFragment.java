@@ -1,29 +1,43 @@
 package com.lh16808.app.lhys.base;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lh16808.app.lhys.base.listener.OnBaseUIListener;
-
 /**
- * Created by Administrator on 2016/11/12.
+ * 基类Activity
  */
-
 public abstract class BaseFragment extends Fragment {
-    protected View mRootview;
-    protected OnBaseUIListener listener;
+    /**
+     * 初始化变量，包括Intent带的数据和Activity内的变量
+     */
+    protected abstract void initVariables();
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    /**
+     * 加载layout布局文件，初始化控件，为控件挂上事件方法
+     *
+     * @param savedInstanceState
+     */
+    protected abstract View initViews(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
 
+    /**
+     * 调用获取数据
+     */
+    public abstract void loadData();
+
+    protected View view;
+
+
+    @Nullable
     @Override
-    public void onStart() {
-        super.onStart();
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        initVariables();
+        view = initViews(inflater, container, savedInstanceState);
+        loadData();
+        return view;
     }
 
     public void onResume() {
@@ -36,24 +50,4 @@ public abstract class BaseFragment extends Fragment {
 //        MobclickAgent.onPageEnd(getActivity().getClass().getName());
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (mRootview == null) {
-            mRootview = inflater.inflate(setLayout(), null);
-            init();
-        } else {
-            load();
-        }
-        return mRootview;
-    }
-
-    public void setListener(OnBaseUIListener listener) {
-        this.listener = listener;
-    }
-
-    protected abstract int setLayout();
-
-    protected abstract void init();
-
-    protected abstract void load();
 }

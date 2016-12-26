@@ -159,10 +159,10 @@ public class MyMenuFragment extends MenuFragment implements View.OnClickListener
                 });
             } else {
                 if (mTvJiFen.getVisibility() != View.GONE) {
-                    mTvName.setText("请点击登录");
+                    mTvName.setText("点击头像登录");
                     mTvJiFen.setVisibility(View.GONE);
                     mTvLv.setVisibility(View.GONE);
-                    mIvPhoto.setImageResource(R.drawable.ico_mine_login_person);
+                    mIvPhoto.setImageResource(R.mipmap.ic_launcher);
                 }
             }
         } else {

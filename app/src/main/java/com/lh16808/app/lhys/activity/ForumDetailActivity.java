@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.lh16808.app.lhys.R;
 import com.lh16808.app.lhys.adapter.HFDetailAdapter;
@@ -164,8 +165,13 @@ public class ForumDetailActivity extends BaseActivity {
                     tvText.setText(Html.fromHtml(forumDetailModel.getNewstext()));
                     tvName.setText(forumDetailModel.getUsername());
                     tvTime.setText(forumDetailModel.getNewstime());
-                    if (!ForumDetailActivity.this.isFinishing())
-                        ImageLoader.LoaderNetHead(ForumDetailActivity.this, forumDetailModel.getUserpic(), imgIco);
+                    if (!ForumDetailActivity.this.isFinishing()){
+//                        ImageLoader.LoaderNetHead(ForumDetailActivity.this, forumDetailModel.getUserpic(), imgIco);
+                        Glide.with(ForumDetailActivity.this)
+                                .load(forumDetailModel.getUserpic())
+                                .into(imgIco)
+                                .onStart();
+                    }
                     tvFenShu.setText(forumDetailModel.getUserfen());
                     tvDengJi.setText(forumDetailModel.getGroupname());
                     tvTitle.setText(forumDetailModel.getTitle());
